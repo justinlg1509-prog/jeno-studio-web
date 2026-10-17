@@ -1,0 +1,142 @@
+const root = document.documentElement;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+// Entrada del hero: espera a las fuentes (máx. 1,2 s) para no animar texto que luego salta
+Promise.race([document.fonts?.ready, new Promise(r => setTimeout(r, 1200))]).then(() => {
+  requestAnimationFrame(() => root.classList.add('loaded'));
+});
+
+// Cabecera: fondo al bajar, se esconde al seguir bajando y vuelve al subir
+const header = document.querySelector('.site-header');
+let lastY = window.scrollY;
+function onScroll() {
+  const y = window.scrollY;
+  header.classList.toggle('scrolled', y > 20);
+  const menuOpen = nav.classList.contains('open');
+  header.classList.toggle('hidden', !menuOpen && y > 400 && y > lastY);
+  lastY = y;
+}
+
+// Menú móvil
+const toggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.nav');
+function setMenu(open) {
+  nav.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+}
+toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); toggle.focus(); }
+});
+window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// Cinta de trabajos: se duplica para que el bucle no tenga corte
+const track = document.querySelector('.reel-track');
+if (track) {
+  [...track.children].forEach(el => {
+    const copy = el.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.tabIndex = -1;
+    track.appendChild(copy);
+  });
+}
+
+// Manifiesto: las palabras se encienden según avanza el scroll
+const manifesto = document.querySelector('[data-words]');
+if (manifesto) {
+  const text = manifesto.textContent.trim();
+  const goldFrom = text.indexOf('Nosotros');
+  let pos = 0;
+  manifesto.innerHTML = text.split(' ').map(word => {
+    const isGold = pos >= goldFrom;
+    pos += word.length + 1;
+    return `<span class="w${isGold ? ' gold' : ''}">${word}</span>`;
+  }).join(' ');
+  const words = manifesto.querySelectorAll('.w');
+
+  if (reducedMotion) {
+    words.forEach(w => w.classList.add('on'));
+  } else {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = manifesto.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 cuando el texto entra por abajo, 1 cuando su final pasa el 40 % de la pantalla
+      const progress = Math.min(Math.max((vh * 0.85 - r.top) / (r.height + vh * 0.45), 0), 1);
+      const lit = Math.round(progress * words.length);
+      words.forEach((w, i) => w.classList.toggle('on', i < lit));
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
+}
+
+// Trabajos: vista previa flotante que sigue al cursor
+const preview = document.querySelector('.work-preview');
+if (preview && finePointer) {
+  const img = preview.querySelector('img');
+  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
+  const loop = () => {
+    cx += (x - cx) * 0.18;
+    cy += (y - cy) * 0.18;
+    preview.style.transform = `translate(${cx}px, ${cy}px)`;
+    raf = Math.abs(x - cx) + Math.abs(y - cy) > 0.5 ? requestAnimationFrame(loop) : null;
+  };
+  const move = e => {
+    const w = preview.offsetWidth, h = preview.offsetHeight;
+    x = Math.min(e.clientX + 28, window.innerWidth - w - 16);
+    y = Math.min(Math.max(e.clientY - h / 2, 16), window.innerHeight - h - 16);
+    if (!raf) raf = requestAnimationFrame(loop);
+  };
+  document.querySelectorAll('.work-row').forEach(row => {
+    // Precarga la imagen grande al acercarse
+    const big = new Image();
+    row.addEventListener('pointerenter', e => {
+      if (!big.src) big.src = row.dataset.preview;
+      img.src = row.dataset.preview;
+      if (!preview.classList.contains('on')) {
+        move(e); cx = x; cy = y;
+        preview.style.transform = `translate(${cx}px, ${cy}px)`;
+      }
+      preview.classList.add('on');
+    });
+    row.addEventListener('pointermove', move);
+    row.addEventListener('pointerleave', () => preview.classList.remove('on'));
+  });
+}
+
+// Vídeos: se cargan solo cuando aparecen y se pausan al salir de pantalla
+const videos = document.querySelectorAll('.lazy-video');
+const loadVideo = v => {
+  const s = v.querySelector('source[data-src]');
+  if (s) { s.src = s.dataset.src; s.removeAttribute('data-src'); v.load(); }
+};
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(({ target: v, isIntersecting }) => {
+      if (isIntersecting) {
+        loadVideo(v);
+        if (!reducedMotion) v.play().catch(() => {});
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.35 });
+  videos.forEach(v => io.observe(v));
+}
+// Con movimiento reducido: el vídeo de un caso se reproduce al pulsarlo
+if (reducedMotion) {
+  document.querySelectorAll('.phone video').forEach(v => {
+    v.addEventListener('click', () => { loadVideo(v); v.paused ? v.play() : v.pause(); });
+  });
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
