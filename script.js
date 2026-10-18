@@ -9,33 +9,53 @@ Promise.race([document.fonts?.ready, new Promise(r => setTimeout(r, 1200))]).the
 
 // Cabecera: fondo al bajar, se esconde al seguir bajando y vuelve al subir
 const header = document.querySelector('.site-header');
-let lastY = window.scrollY;
-function onScroll() {
-  const y = window.scrollY;
-  header.classList.toggle('scrolled', y > 20);
-  const menuOpen = nav.classList.contains('open');
-  header.classList.toggle('hidden', !menuOpen && y > 400 && y > lastY);
-  lastY = y;
-}
-
-// Menú móvil
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
-function setMenu(open) {
+const isMenuOpen = () => nav.classList.contains('open');
+let lastY = window.scrollY;
+let scrollTicking = false;
+function onScroll() {
+  scrollTicking = false;
+  const y = window.scrollY;
+  header.classList.toggle('scrolled', y > 20);
+  if (Math.abs(y - lastY) > 4) {
+    header.classList.toggle('hidden', !isMenuOpen() && y > 400 && y > lastY);
+    lastY = y;
+  }
+}
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(onScroll); }
+}, { passive: true });
+onScroll();
+
+// Menú móvil: bloquea el scroll de fondo y deja el resto de la página inerte
+const outside = [document.getElementById('main'), document.querySelector('.footer')];
+function setMenu(open, fromKeyboard = false) {
+  if (open === isMenuOpen()) return;
   nav.classList.toggle('open', open);
-  document.body.classList.toggle('menu-open', open);
+  root.classList.toggle('menu-open', open);
+  header.classList.remove('hidden');
   toggle.setAttribute('aria-expanded', String(open));
   toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  outside.forEach(el => el && (el.inert = open));
+  // Con teclado, el foco entra en el menú; con el dedo no hace falta marcar nada
+  if (open && fromKeyboard) nav.querySelector('a')?.focus({ preventScroll: true });
 }
-toggle.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+toggle.addEventListener('click', e => setMenu(!isMenuOpen(), e.detail === 0));
 nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.querySelector('.brand').addEventListener('click', () => setMenu(false));
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && nav.classList.contains('open')) { setMenu(false); toggle.focus(); }
+  if (e.key === 'Escape' && isMenuOpen()) { setMenu(false); toggle.focus(); }
 });
 window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+// Cintas animadas: solo se mueven cuando se ven
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting }) => target.classList.toggle('offscreen', !isIntersecting));
+  });
+  document.querySelectorAll('.reel-strip, .marquee').forEach(el => io.observe(el));
+}
 
 // Cinta de trabajos: se duplica para que el bucle no tenga corte
 const track = document.querySelector('.reel-track');
@@ -64,7 +84,7 @@ if (manifesto) {
   if (reducedMotion) {
     words.forEach(w => w.classList.add('on'));
   } else {
-    let ticking = false;
+    let ticking = false, near = true, lastLit = -1;
     const update = () => {
       ticking = false;
       const r = manifesto.getBoundingClientRect();
@@ -72,9 +92,15 @@ if (manifesto) {
       // 0 cuando el texto entra por abajo, 1 cuando su final pasa el 40 % de la pantalla
       const progress = Math.min(Math.max((vh * 0.85 - r.top) / (r.height + vh * 0.45), 0), 1);
       const lit = Math.round(progress * words.length);
+      if (lit === lastLit) return;
+      lastLit = lit;
       words.forEach((w, i) => w.classList.toggle('on', i < lit));
     };
-    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    // Solo se calcula mientras el texto está cerca de la pantalla
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { near = e.isIntersecting; if (near) update(); }, { rootMargin: '50% 0px' }).observe(manifesto);
+    }
+    window.addEventListener('scroll', () => { if (near && !ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     update();
   }
 }

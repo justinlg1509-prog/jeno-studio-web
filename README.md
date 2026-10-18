@@ -11,6 +11,7 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias), publicado en Vercel. 
 - `script.js` — animación de entrada, menú, vista previa de trabajos y vídeos bajo demanda
 - `assets/work/` — capturas de las webs del portfolio
 - `assets/video/` y `assets/reels/` — reels de Instagram y sus pósters
+- `assets/fonts/` — Inter Tight y Lora (solo latín), alojadas aquí para no depender de Google Fonts
 - `assets/logo-j.svg` — logo vectorial
 
 ## Ver en local
