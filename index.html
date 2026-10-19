@@ -25,23 +25,6 @@
   <link rel="preload" href="assets/fonts/lora-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
-  <!-- Google tag (gtag.js) con Consent Mode v2: sin cookies hasta que el visitante acepta -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1B994S08P"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    (function () {
-      var saved = null;
-      try { saved = localStorage.getItem('jeno-consent'); } catch (e) {}
-      gtag('consent', 'default', {
-        analytics_storage: saved === 'granted' ? 'granted' : 'denied',
-        ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'
-      });
-    })();
-    gtag('js', new Date());
-
-    gtag('config', 'G-R1B994S08P');
-  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -377,20 +360,18 @@
       <p class="footer-word" aria-hidden="true">jeno studio<svg viewBox="0 0 240 390"><use href="#logo-j"/></svg></p>
       <div class="footer-bottom">
         <span>© <span id="year">2026</span> Jeno Studio</span>
-        <button class="footer-link" type="button" data-open-consent>Cookies</button>
+        <nav class="footer-legal" aria-label="Legal">
+          <a href="/aviso-legal">Aviso legal</a>
+          <a href="/privacidad">Privacidad</a>
+          <a href="/cookies">Cookies</a>
+          <button class="footer-link" type="button" data-open-consent>Preferencias de cookies</button>
+        </nav>
         <a href="#inicio">Volver arriba ↑</a>
       </div>
     </div>
   </footer>
 
-  <section class="consent" aria-label="Aviso de cookies" hidden>
-    <p><strong>¿Nos dejas medir las visitas?</strong> Usamos Google Analytics para saber cuánta gente entra y qué le interesa. Solo pone cookies si aceptas.</p>
-    <div class="consent-actions">
-      <button class="btn btn-line" type="button" data-consent="denied">Rechazar</button>
-      <button class="btn btn-gold" type="button" data-consent="granted">Aceptar</button>
-    </div>
-  </section>
-
+  <script src="analytics.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>

@@ -9,6 +9,8 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias), publicado en Vercel. 
 - `index.html` — la página
 - `styles.css` — estilos
 - `script.js` — animación de entrada, menú, vista previa de trabajos y vídeos bajo demanda
+- `analytics.js` — aviso de cookies y Google Analytics (solo se carga si el visitante acepta); lo usan todas las páginas
+- `aviso-legal.html`, `privacidad.html`, `cookies.html` — páginas legales (se sirven como `/aviso-legal`, `/privacidad` y `/cookies`)
 - `assets/work/` — capturas de las webs del portfolio
 - `assets/video/` y `assets/reels/` — reels de Instagram y sus pósters
 - `assets/fonts/` — Inter Tight y Lora (solo latín), alojadas aquí para no depender de Google Fonts
