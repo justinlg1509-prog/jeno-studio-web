@@ -346,7 +346,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .footer-legal [aria-current] { color: var(--bone); }
 
 /* ---------- Páginas legales ---------- */
-.legal-back { font-size: 15px; font-weight: 600; color: var(--smoke); transition: color .2s; }
+.legal-back { font-size: 15px; font-weight: 600; color: var(--smoke); white-space: nowrap; transition: color .2s; }
 .legal-back:hover { color: var(--bone); }
 .legal { padding-block: calc(var(--header) + clamp(48px, 8vw, 110px)) clamp(64px, 8vw, 120px); }
 .legal-inner { max-width: calc(780px + 2 * var(--gutter)); margin-inline: 0; }
