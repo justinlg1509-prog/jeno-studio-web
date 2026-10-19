@@ -165,4 +165,40 @@ if (reducedMotion) {
   });
 }
 
+// Cookies: Analytics solo guarda cookies si el visitante acepta
+const consentBox = document.querySelector('.consent');
+function setConsent(value) {
+  try { localStorage.setItem('jeno-consent', value); } catch {}
+  window.gtag?.('consent', 'update', { analytics_storage: value });
+  // Si retira el permiso, se borran las cookies que ya hubiera puesto Analytics
+  if (value === 'denied') {
+    document.cookie.split(';').map(c => c.split('=')[0].trim()).filter(n => n.startsWith('_ga')).forEach(n => {
+      document.cookie = `${n}=; Max-Age=0; path=/`;
+      document.cookie = `${n}=; Max-Age=0; path=/; domain=${location.hostname}`;
+    });
+  }
+  consentBox.hidden = true;
+}
+if (consentBox) {
+  let saved = null;
+  try { saved = localStorage.getItem('jeno-consent'); } catch {}
+  if (!saved) consentBox.hidden = false;
+  consentBox.querySelectorAll('[data-consent]').forEach(b => b.addEventListener('click', () => setConsent(b.dataset.consent)));
+  document.querySelectorAll('[data-open-consent]').forEach(b => b.addEventListener('click', () => {
+    consentBox.hidden = false;
+    consentBox.querySelector('button').focus();
+  }));
+}
+
+// Analytics: escribir por Instagram o por email cuenta como contacto (generate_lead)
+document.addEventListener('click', e => {
+  const a = e.target.closest('a');
+  if (!a || !window.gtag) return;
+  const href = a.getAttribute('href') || '';
+  const where = a.closest('[id]')?.id || 'pagina';
+  if (href.startsWith('https://ig.me/')) gtag('event', 'generate_lead', { method: 'instagram_dm', link_location: where });
+  else if (href.startsWith('mailto:')) gtag('event', 'generate_lead', { method: 'email', link_location: where });
+  else if (href === '#contacto') gtag('event', 'cta_click', { link_location: where });
+});
+
 document.getElementById('year').textContent = new Date().getFullYear();
