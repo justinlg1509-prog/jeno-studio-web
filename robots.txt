@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jenostudio.vercel.app/sitemap.xml
+Sitemap: https://www.jenostudio.com/sitemap.xml
