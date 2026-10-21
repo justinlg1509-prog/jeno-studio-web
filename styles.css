@@ -91,6 +91,32 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .nav-cta { padding: 10px 18px; border-radius: 99px; background: var(--gold); color: var(--night); font-weight: 700; transition: background-color .2s; }
 .nav-cta:hover { background: var(--gold-soft); }
 .nav-extra { display: none; }
+.nav > a[aria-current]:not(.nav-cta) { color: var(--bone); }
+
+/* Desplegables del menú (Servicios, Sectores) */
+.nav-drop { position: relative; }
+.nav-drop > summary {
+  display: flex; align-items: center; gap: 8px;
+  list-style: none; cursor: pointer; color: var(--smoke); transition: color .2s;
+}
+.nav-drop > summary::-webkit-details-marker { display: none; }
+.nav-drop > summary::after {
+  content: ""; flex: none; width: 7px; height: 7px;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg); transition: transform .3s var(--ease);
+}
+.nav-drop[open] > summary::after { transform: translateY(1px) rotate(225deg); }
+.nav-drop > summary:hover, .nav-drop[open] > summary, .nav-drop > summary.is-current { color: var(--bone); }
+.nav-sub {
+  position: absolute; top: calc(100% + 18px); left: -18px; z-index: 5;
+  display: grid; min-width: 290px; padding: 10px;
+  background: var(--coal); border: 1px solid var(--rule-dark); border-radius: 16px;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .75);
+}
+.nav-sub::before { content: ""; position: absolute; inset: -20px 0 auto; height: 20px; }
+.nav-sub a { display: block; padding: 10px 14px; border-radius: 10px; color: var(--bone); font-size: 15px; font-weight: 500; transition: background-color .2s, color .2s; }
+.nav-sub a:hover { background: var(--coal-2); color: var(--gold); }
+.nav-sub [aria-current] { color: var(--gold); }
 
 .menu-toggle { display: none; position: relative; z-index: 60; width: 48px; height: 48px; margin-right: -10px; border: 0; padding: 0; background: transparent; color: var(--bone); cursor: pointer; touch-action: manipulation; }
 .menu-toggle span { position: absolute; left: 12px; right: 12px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .45s var(--ease); }
@@ -351,6 +377,29 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .footer-link { border: 0; padding: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
 .footer-legal { display: flex; flex-wrap: wrap; gap: 8px 22px; }
 .footer-legal [aria-current] { color: var(--bone); }
+/* Enlaces a todas las páginas de servicio, zona y sector */
+.footer-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 36px 40px; margin-top: 44px; padding-top: 40px; border-top: 1px solid var(--rule-dark); }
+.footer-title { margin-bottom: 16px; color: var(--smoke); font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.footer-col ul { display: grid; gap: 10px; font-size: 15px; line-height: 1.4; }
+.footer-col a { color: var(--bone); font-weight: 500; transition: color .2s; }
+.footer-col a:hover, .footer-col [aria-current] { color: var(--gold); }
+
+/* ---------- Migas de pan ---------- */
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 10px; color: var(--smoke); font-size: 14px; }
+.crumbs li + li::before { content: "/"; margin-right: 10px; color: rgba(244, 239, 228, .3); }
+.crumbs a, .legal-inner .crumbs a { display: inline-block; padding-block: 4px; color: inherit; text-decoration: none; transition: color .2s; }
+.crumbs a:hover { color: var(--bone); }
+.crumbs [aria-current] { color: var(--bone); }
+.legal .crumbs, .quote-head .crumbs { margin-bottom: clamp(24px, 3vw, 36px); }
+
+/* ---------- Páginas interiores ---------- */
+.btn-icon { width: 20px; height: 20px; flex: none; color: var(--gold); }
+.page-hero { position: relative; overflow: hidden; padding: calc(var(--header) + clamp(36px, 6vw, 88px)) 0 clamp(72px, 9vw, 130px); }
+.page-glow { top: -24%; }
+.page-hero-inner { position: relative; z-index: 1; }
+.page-title { margin-top: clamp(28px, 3.4vw, 44px); max-width: 16ch; font-size: clamp(44px, 6.6vw, 104px); letter-spacing: -.05em; line-height: .95; }
+.page-title em { letter-spacing: -.03em; padding-right: .04em; }
+.page-lead { margin: clamp(24px, 3vw, 36px) 0 clamp(32px, 4vw, 44px); max-width: 36em; color: var(--smoke); font-size: clamp(17px, 1.4vw, 20px); }
 
 /* ---------- Páginas legales ---------- */
 .legal-back { font-size: 15px; font-weight: 600; color: var(--smoke); white-space: nowrap; transition: color .2s; }
@@ -497,6 +546,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
+  .nav { gap: 22px; }
   .service-list { grid-template-columns: 1fr 1fr; }
   .service:nth-child(3) { padding-left: 0; border-left: 0; }
   .service:nth-child(n+3) { border-top: 1px solid var(--rule-light); margin-top: 20px; }
@@ -531,6 +581,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
   .nav.open > :nth-child(4) { transition-delay: .27s; }
   .nav.open > :nth-child(5) { transition-delay: .34s; }
   .nav.open > :nth-child(6) { transition-delay: .4s; }
+  .nav.open > :nth-child(7) { transition-delay: .46s; }
 
   .nav > a:not(.nav-cta) {
     counter-increment: nav;
@@ -548,6 +599,25 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
   .nav > a:not(.nav-cta):active { color: var(--gold); }
   .nav > a:not(.nav-cta):active::after { color: var(--gold); transform: translateX(4px); }
   .nav > a:not(.nav-cta):hover { color: var(--bone); }
+  /* En la cortina, los desplegables se abren hacia abajo, dentro de la lista */
+  .nav-drop > summary {
+    counter-increment: nav;
+    align-items: baseline; gap: 16px;
+    padding: clamp(12px, 2.2vh, 20px) 0;
+    border-bottom: 1px solid var(--rule-dark);
+    color: var(--bone);
+  }
+  .nav-drop > summary::before {
+    content: counter(nav, decimal-leading-zero);
+    font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 15px; letter-spacing: 0;
+    color: var(--gold);
+  }
+  .nav-drop > summary::after { align-self: center; width: 11px; height: 11px; margin-left: auto; margin-right: 4px; border-width: 2px; color: var(--smoke); }
+  .nav-sub { position: static; min-width: 0; padding: 4px 0 14px 34px; background: none; border: 0; border-bottom: 1px solid var(--rule-dark); border-radius: 0; box-shadow: none; }
+  .nav-sub::before { display: none; }
+  .nav-sub a { padding: 9px 0; font-size: 18px; font-weight: 600; letter-spacing: -.01em; color: var(--smoke); }
+  .nav-sub a:hover { background: none; }
+  .nav-sub a:active { color: var(--gold); }
   .nav .nav-cta {
     display: flex; justify-content: center; align-items: center; min-height: 58px;
     margin-top: clamp(24px, 4vh, 40px); padding: 0 26px;
@@ -584,6 +654,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 
   .quote-inner { grid-template-columns: 1fr; gap: 36px; }
   .quote-head { position: static; }
+
+  .footer-cols { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {

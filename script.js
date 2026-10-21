@@ -47,7 +47,20 @@ document.querySelector('.brand').addEventListener('click', () => setMenu(false))
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && isMenuOpen()) { setMenu(false); toggle.focus(); }
 });
-window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+const desktop = window.matchMedia('(min-width: 901px)');
+desktop.addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+// Desplegables del menú: solo uno abierto; se cierran al pulsar fuera, con Escape o al esconderse la cabecera
+const drops = [...document.querySelectorAll('.nav-drop')];
+const closeDrops = except => drops.forEach(d => { if (d !== except) d.open = false; });
+drops.forEach(d => d.addEventListener('toggle', () => { if (d.open) closeDrops(d); }));
+document.addEventListener('click', e => { if (!e.target.closest('.nav-drop')) closeDrops(); });
+document.addEventListener('keydown', e => {
+  const open = drops.find(d => d.open);
+  // En el móvil, Escape ya cierra el menú entero
+  if (e.key === 'Escape' && open && desktop.matches) { open.open = false; open.querySelector('summary').focus(); }
+});
+new MutationObserver(() => { if (header.classList.contains('hidden')) closeDrops(); }).observe(header, { attributes: true, attributeFilter: ['class'] });
 
 // Cintas animadas: solo se mueven cuando se ven
 if ('IntersectionObserver' in window) {

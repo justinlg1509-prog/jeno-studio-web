@@ -1,22 +1,37 @@
-# Jeno Studio
+# JENO STUDIO
 
-Web de [Jeno Studio](https://www.instagram.com/jeno.studi0/): diseño web + Google Maps para negocios de Almería y de todo el mundo.
+Web de [JENO STUDIO](https://www.jenostudio.com): diseño web + Google Maps para negocios de Almería y de todo el mundo.
 
 Sitio estático (HTML, CSS y JavaScript sin dependencias), publicado en Vercel. Cada push a `main` se despliega solo.
 
-## Estructura
+## Cómo se editan las páginas
 
-- `index.html` — la página
-- `styles.css` — estilos
-- `script.js` — animación de entrada, menú, vista previa de trabajos y vídeos bajo demanda
-- `presupuesto.html` + `presupuesto.js` — formulario de presupuesto (`/presupuesto`): no envía nada a ningún servidor; prepara el mensaje y abre Instagram (copiándolo) o WhatsApp (ya escrito)
-- `contacto.js` — **usuario de Instagram y número de WhatsApp, en un solo sitio**, sus enlaces y el botón flotante de Instagram; lo usan todas las páginas
-- `analytics.js` — aviso de cookies y Google Analytics (solo se carga si el visitante acepta); lo usan todas las páginas
-- `aviso-legal.html`, `privacidad.html`, `cookies.html` — páginas legales (se sirven como `/aviso-legal`, `/privacidad` y `/cookies`)
-- `assets/work/` — capturas de las webs del portfolio
-- `assets/video/` y `assets/reels/` — reels de Instagram y sus pósters
-- `assets/fonts/` — Inter Tight y Lora (solo latín), alojadas aquí para no depender de Google Fonts
-- `assets/logo-j.svg` — logo vectorial
+Los `.html` de la raíz **se generan**: no los edites a mano.
+
+- `src/pages/*.mjs`: el contenido de cada página (title, meta, migas, JSON-LD y cuerpo)
+- `src/layout.mjs`: `<head>`, cabecera con el menú, pie, migas de pan y bloques comunes
+- `src/data.mjs`: marca, email, Instagram, servicios, sectores, zonas y trabajos (de aquí salen el menú, el pie y el sitemap)
+- `src/build.mjs`: genera los `.html` y el `sitemap.xml`
+
+Después de cambiar algo en `src/`:
+
+```bash
+node src/build.mjs
+```
+
+Y sube a la vez los `.html` generados. `src/` no se publica (`.vercelignore`).
+
+## Resto de archivos
+
+- `styles.css`: estilos
+- `script.js`: animación de entrada, menú y desplegables, vista previa de trabajos y vídeos bajo demanda
+- `presupuesto.js`: formulario de presupuesto (`/presupuesto`). No envía nada a ningún servidor: prepara el mensaje y abre Instagram (copiándolo) o WhatsApp (ya escrito)
+- `contacto.js`: **usuario de Instagram y número de WhatsApp, en un solo sitio**, sus enlaces y el botón flotante de Instagram
+- `analytics.js`: aviso de cookies y Google Analytics (solo se carga si el visitante acepta)
+- `robots.txt`, `sitemap.xml` (generado) y `llms.txt`
+- `assets/work/`: capturas de las webs del portfolio
+- `assets/video/` y `assets/reels/`: reels de Instagram y sus pósters
+- `assets/fonts/`: Inter Tight y Lora (solo latín), alojadas aquí para no depender de Google Fonts
 
 ## Ver en local
 
