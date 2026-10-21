@@ -53,9 +53,9 @@
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
       <a href="#preguntas">Preguntas</a>
-      <a class="nav-cta" href="#contacto">Te lo miramos gratis</a>
+      <a class="nav-cta" href="/presupuesto">Pedir presupuesto</a>
       <div class="nav-extra">
-        <a href="https://www.instagram.com/jeno.studi0/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="#" data-whatsapp target="_blank" rel="noopener">WhatsApp ↗</a>
         <a href="mailto:jeno.studio.conctacto@gmail.com">jeno.studio.conctacto@gmail.com</a>
       </div>
     </nav>
@@ -64,6 +64,7 @@
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="logo-j" viewBox="180 105 240 390"><path fill="currentColor" d="M272 190 410 115v270a110 102 0 0 1-220 0V262h65a15 15 0 0 1 15 15v95a30 30 0 0 0 60 0V243c0-26-18-45-58-53z"/></symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/></g><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/></symbol>
   </svg>
 
   <main id="main">
@@ -80,7 +81,7 @@
         <div class="hero-foot reveal-line">
           <p>Diseñamos webs rápidas, claras y pensadas para el móvil, y te ayudamos a aparecer en Google. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
           <div class="hero-actions">
-            <a class="btn btn-gold" href="#contacto">Te lo miramos gratis</a>
+            <a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
             <a class="btn btn-line" href="#trabajos">Ver trabajos</a>
           </div>
         </div>
@@ -300,7 +301,7 @@
       <div class="wrap faq-inner">
         <div class="faq-head">
           <h2>Preguntas frecuentes</h2>
-          <p>¿Tu duda no está aquí? <a href="https://www.instagram.com/jeno.studi0/" target="_blank" rel="noopener">Escríbenos</a> y te respondemos.</p>
+          <p>¿Tu duda no está aquí? <a href="/presupuesto">Escríbenos</a> y te respondemos.</p>
         </div>
         <div class="faq-list">
           <details>
@@ -337,9 +338,9 @@
       <div class="wrap contact-inner">
         <p class="contact-badge"><span aria-hidden="true">✓</span> Te lo miramos gratis</p>
         <h2>¿Quieres saber qué ve Google de <em>tu negocio</em>?</h2>
-        <p>Escríbenos con el nombre de tu negocio. Revisamos tu web y tu ficha de Google y te contamos qué cambiaríamos, sin compromiso.</p>
+        <p>Cuéntanos tu negocio y qué necesitas. Revisamos tu web y tu ficha de Google y te respondemos por WhatsApp con lo que cambiaríamos, sin compromiso.</p>
         <div class="contact-actions">
-          <a class="btn btn-gold btn-lg" href="https://ig.me/m/jeno.studi0" target="_blank" rel="noopener">Escribir por Instagram</a>
+          <a class="btn btn-gold btn-lg" href="/presupuesto">Pedir presupuesto</a>
           <a class="contact-mail" href="mailto:jeno.studio.conctacto@gmail.com">jeno.studio.conctacto@gmail.com</a>
         </div>
       </div>
@@ -350,12 +351,17 @@
     <div class="wrap">
       <div class="footer-top">
         <p>Diseño web + Google Maps<br>Almería y todo el mundo</p>
-        <nav aria-label="Pie de página">
-          <a href="#trabajos">Trabajos</a>
-          <a href="#servicios">Servicios</a>
-          <a href="https://www.instagram.com/jeno.studi0/" target="_blank" rel="noopener">Instagram</a>
-          <a href="mailto:jeno.studio.conctacto@gmail.com">Email</a>
-        </nav>
+        <div class="footer-links">
+          <nav aria-label="Pie de página">
+            <a href="#trabajos">Trabajos</a>
+            <a href="#servicios">Servicios</a>
+            <a href="/presupuesto">Presupuesto</a>
+            <a href="mailto:jeno.studio.conctacto@gmail.com">Email</a>
+          </nav>
+          <ul class="footer-social" aria-label="Redes sociales">
+            <li><a href="https://www.instagram.com/jeno.studi0/" target="_blank" rel="noopener" aria-label="Instagram de Jeno Studio"><svg aria-hidden="true"><use href="#icon-instagram"/></svg></a></li>
+          </ul>
+        </div>
       </div>
       <p class="footer-word" aria-hidden="true">jeno studio<svg viewBox="0 0 240 390"><use href="#logo-j"/></svg></p>
       <div class="footer-bottom">
@@ -372,6 +378,7 @@
   </footer>
 
   <script src="analytics.js" defer></script>
+  <script src="contacto.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>

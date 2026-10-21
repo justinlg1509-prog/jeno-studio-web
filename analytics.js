@@ -60,14 +60,19 @@
   if (saved === 'granted') loadAnalytics();
   else if (!saved) banner.hidden = false;
 
-  // Escribir por Instagram o por email cuenta como contacto (generate_lead)
+  // Eventos solo con permiso; el formulario de presupuesto también los usa
+  const track = (name, params) => { if (loaded && read() === 'granted') gtag('event', name, params); };
+  window.jenoTrack = track;
+
+  // Escribir por WhatsApp, llamar o mandar un email cuenta como contacto (generate_lead)
   document.addEventListener('click', e => {
     const a = e.target.closest('a');
-    if (!a || !loaded || read() !== 'granted') return;
+    if (!a) return;
     const href = a.getAttribute('href') || '';
-    const where = a.closest('[id]')?.id || 'pagina';
-    if (href.startsWith('https://ig.me/')) gtag('event', 'generate_lead', { method: 'instagram_dm', link_location: where });
-    else if (href.startsWith('mailto:')) gtag('event', 'generate_lead', { method: 'email', link_location: where });
-    else if (href === '#contacto') gtag('event', 'cta_click', { link_location: where });
+    const where = a.dataset.location || a.closest('[id]')?.id || 'pagina';
+    if (href.startsWith('https://wa.me/')) track('generate_lead', { method: 'whatsapp', link_location: where });
+    else if (href.startsWith('tel:')) track('generate_lead', { method: 'phone', link_location: where });
+    else if (href.startsWith('mailto:')) track('generate_lead', { method: 'email', link_location: where });
+    else if (href === '/presupuesto') track('cta_click', { link_location: where });
   });
 })();

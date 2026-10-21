@@ -9,6 +9,8 @@ Sitio estático (HTML, CSS y JavaScript sin dependencias), publicado en Vercel. 
 - `index.html` — la página
 - `styles.css` — estilos
 - `script.js` — animación de entrada, menú, vista previa de trabajos y vídeos bajo demanda
+- `presupuesto.html` + `presupuesto.js` — formulario de presupuesto (`/presupuesto`): no envía nada a ningún servidor, abre WhatsApp con el mensaje escrito
+- `contacto.js` — **número de WhatsApp (`WHATSAPP_NUMBER`), en un solo sitio**, enlaces de WhatsApp/llamada y botón flotante; lo usan todas las páginas
 - `analytics.js` — aviso de cookies y Google Analytics (solo se carga si el visitante acepta); lo usan todas las páginas
 - `aviso-legal.html`, `privacidad.html`, `cookies.html` — páginas legales (se sirven como `/aviso-legal`, `/privacidad` y `/cookies`)
 - `assets/work/` — capturas de las webs del portfolio
