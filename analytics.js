@@ -64,14 +64,14 @@
   const track = (name, params) => { if (loaded && read() === 'granted') gtag('event', name, params); };
   window.jenoTrack = track;
 
-  // Escribir por WhatsApp, llamar o mandar un email cuenta como contacto (generate_lead)
+  // Escribir por Instagram, por WhatsApp o mandar un email cuenta como contacto (generate_lead)
   document.addEventListener('click', e => {
     const a = e.target.closest('a');
     if (!a) return;
     const href = a.getAttribute('href') || '';
     const where = a.dataset.location || a.closest('[id]')?.id || 'pagina';
-    if (href.startsWith('https://wa.me/')) track('generate_lead', { method: 'whatsapp', link_location: where });
-    else if (href.startsWith('tel:')) track('generate_lead', { method: 'phone', link_location: where });
+    if (href.startsWith('https://ig.me/')) track('generate_lead', { method: 'instagram_dm', link_location: where });
+    else if (href.startsWith('https://wa.me/')) track('generate_lead', { method: 'whatsapp', link_location: where });
     else if (href.startsWith('mailto:')) track('generate_lead', { method: 'email', link_location: where });
     else if (href === '/presupuesto') track('cta_click', { link_location: where });
   });

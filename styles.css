@@ -442,9 +442,13 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .field.is-invalid .chip span { border-color: rgba(255, 154, 133, .55); }
 
 .quote-send { display: grid; gap: 14px; margin-top: 4px; }
-.quote-submit { width: 100%; border: 0; font-family: var(--sans); cursor: pointer; }
+.quote-submit { width: 100%; font-family: var(--sans); cursor: pointer; }
+.quote-submit.btn-gold { border: 0; }
+.quote-submit.btn-line { background: transparent; }
+.quote-submit.btn-line svg { color: var(--gold); }
 .quote-submit svg { width: 24px; height: 24px; flex: none; }
-.quote-submit[aria-busy="true"] { cursor: progress; background: var(--gold-soft); }
+.quote-submit[aria-busy="true"] { cursor: progress; }
+.quote-submit.btn-gold[aria-busy="true"] { background: var(--gold-soft); }
 .quote-submit[aria-busy="true"] svg { display: none; }
 .quote-submit[aria-busy="true"]::before { content: ""; width: 20px; height: 20px; border: 2.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(1turn); } }
@@ -457,8 +461,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .quote-direct-actions .btn { padding: 0 18px; white-space: nowrap; }
 .quote-direct-actions svg { width: 20px; height: 20px; flex: none; color: var(--gold); }
 
-/* ---------- Botón flotante de WhatsApp ---------- */
-.wa-float {
+/* ---------- Botón flotante de contacto ---------- */
+.contact-float {
   position: fixed; z-index: 44;
   right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
   display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
@@ -466,12 +470,12 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
   box-shadow: 0 0 0 1px rgba(240, 180, 76, .45), 0 14px 34px -12px rgba(0, 0, 0, .85);
   transition: transform .25s var(--ease), background-color .2s, color .2s, opacity .3s, visibility .3s;
 }
-.wa-float svg { width: 24px; height: 24px; }
-.wa-float:hover { background: var(--gold); color: var(--night); }
-.wa-float:active { transform: scale(.94); }
-.wa-float:focus-visible { border-radius: 50%; }
+.contact-float svg { width: 24px; height: 24px; }
+.contact-float:hover { background: var(--gold); color: var(--night); }
+.contact-float:active { transform: scale(.94); }
+.contact-float:focus-visible { border-radius: 50%; }
 /* Se aparta mientras está abierto el menú o el aviso de cookies, que ocupan la misma esquina */
-.menu-open .wa-float, body:has(.consent:not([hidden])) .wa-float { opacity: 0; visibility: hidden; pointer-events: none; }
+.menu-open .contact-float, body:has(.consent:not([hidden])) .contact-float { opacity: 0; visibility: hidden; pointer-events: none; }
 
 /* ---------- Aviso de cookies ---------- */
 .consent {
@@ -604,7 +608,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
   .contact-actions .btn { width: 100%; }
   .footer-bottom { flex-direction: column; }
   /* Que el botón flotante no tape lo último del pie */
-  body:has(.wa-float) .footer-bottom { padding-bottom: 88px; }
+  body:has(.contact-float) .footer-bottom { padding-bottom: 88px; }
 
   .quote-trust { display: flex; flex-wrap: wrap; gap: 6px 18px; border: 0; }
   .quote-trust li { gap: 8px; padding: 0; border: 0; font-size: 15px; }
