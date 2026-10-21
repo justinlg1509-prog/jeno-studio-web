@@ -18,7 +18,7 @@ export default {
   <div class="quote-head">
     ${breadcrumbs(crumbs)}
     <h1>Pide tu <em>presupuesto</em></h1>
-    <p class="quote-lead">Cuéntanos qué necesitas y te respondemos por Instagram o WhatsApp con una propuesta para tu negocio.</p>
+    <p class="quote-lead">Pide presupuesto a JENO STUDIO para tu página web, tienda online, vídeos, redes o Google Maps: cuéntanos qué necesitas y te respondemos por Instagram o WhatsApp con una propuesta para tu negocio.</p>
     <ul class="quote-trust" aria-label="Lo que te garantizamos">
       <li>Respuesta en menos de 24 h</li>
       <li>Presupuesto sin compromiso</li>
