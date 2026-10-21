@@ -265,6 +265,8 @@ export function render(page) {
     ? `\n  <script type="application/ld+json">\n${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c')}\n  </script>`
     : '';
   const usesSerif = body.includes('<em');
+  // Los pósters de los vídeos los pone script.js al acercarse (data-poster), para no competir con lo de arriba
+  const main = body.replace(/(<video class="lazy-video"[^>]*?) poster=/g, '$1 data-poster=');
   return `<!doctype html>
 <html lang="es">
 <head>
@@ -301,7 +303,7 @@ export function render(page) {
   ${SPRITE}
 
   <main id="main"${page.mainClass ? ` class="${page.mainClass}"` : ''}>
-    ${body.trim()}
+    ${main.trim()}
   </main>
 
   ${footer(path)}

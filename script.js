@@ -158,6 +158,16 @@ const loadVideo = v => {
   const s = v.querySelector('source[data-src]');
   if (s) { s.src = s.dataset.src; s.removeAttribute('data-src'); v.load(); }
 };
+// Los pósters también esperan: se piden cuando el vídeo está a media pantalla de aparecer
+const showPoster = v => { if (v.dataset.poster) { v.poster = v.dataset.poster; v.removeAttribute('data-poster'); } };
+if ('IntersectionObserver' in window) {
+  const near = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting }) => { if (isIntersecting) { showPoster(target); near.unobserve(target); } });
+  }, { rootMargin: '50% 0px' });
+  videos.forEach(v => near.observe(v));
+} else {
+  videos.forEach(showPoster);
+}
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver(entries => {
     entries.forEach(({ target: v, isIntersecting }) => {

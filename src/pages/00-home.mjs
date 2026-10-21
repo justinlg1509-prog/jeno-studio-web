@@ -67,9 +67,9 @@ export default {
       <span class="line"><span>que trae <em>clientes</em></span></span>
       <span class="line"><span>a tu negocio</span></span>
     </h1>
-    <div class="hero-foot reveal-line">
+    <div class="hero-foot">
       <p>JENO STUDIO diseña páginas web en Almería para negocios que quieren más clientes: rápidas, claras, pensadas para el móvil y preparadas para salir en Google y en Google Maps. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
-      <div class="hero-actions">
+      <div class="hero-actions reveal-line">
         <a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
         <a class="btn btn-line" href="#trabajos">Ver trabajos</a>
       </div>
@@ -80,9 +80,9 @@ export default {
     <div class="reel-track">
       <a class="shot" href="https://www.fialka.es/es/" target="_blank" rel="noopener"><img src="/assets/work/fialka-sm.webp" width="760" height="475" decoding="async" alt="Web de Enterprise Thinking, de Alex Fialka"><span>Enterprise Thinking</span></a>
       <a class="shot" href="https://bar-meridiano.vercel.app/" target="_blank" rel="noopener"><img src="/assets/work/bar-meridiano-sm.webp" width="760" height="475" decoding="async" alt="Web de Bar Meridiano"><span>Bar Meridiano</span></a>
-      <a class="shot" href="https://www.elitesolutionpro.com/" target="_blank" rel="noopener"><img src="/assets/work/elitesolutionpro-sm.webp" width="760" height="475" decoding="async" alt="Web de Elite Solution Pro"><span>Elite Solution Pro</span></a>
-      <a class="shot" href="https://www.ecologicalvillas.com/" target="_blank" rel="noopener"><img src="/assets/work/ecologicalvillas-sm.webp" width="760" height="475" decoding="async" alt="Web de Ecological Villas, casas pasivas y ecológicas"><span>Ecological Villas</span></a>
-      <a class="shot" href="https://pethealthcareguide.com/" target="_blank" rel="noopener"><img src="/assets/work/pethealthcareguide-sm.webp" width="760" height="475" decoding="async" alt="Web de Pet Health Care Guide"><span>Pet Health Care Guide</span></a>
+      <a class="shot" href="https://www.elitesolutionpro.com/" target="_blank" rel="noopener"><img src="/assets/work/elitesolutionpro-sm.webp" width="760" height="475" loading="lazy" decoding="async" alt="Web de Elite Solution Pro"><span>Elite Solution Pro</span></a>
+      <a class="shot" href="https://www.ecologicalvillas.com/" target="_blank" rel="noopener"><img src="/assets/work/ecologicalvillas-sm.webp" width="760" height="475" loading="lazy" decoding="async" alt="Web de Ecological Villas, casas pasivas y ecológicas"><span>Ecological Villas</span></a>
+      <a class="shot" href="https://pethealthcareguide.com/" target="_blank" rel="noopener"><img src="/assets/work/pethealthcareguide-sm.webp" width="760" height="475" loading="lazy" decoding="async" alt="Web de Pet Health Care Guide"><span>Pet Health Care Guide</span></a>
     </div>
   </div>
 </section>
