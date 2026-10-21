@@ -24,6 +24,7 @@ const problems = [];
 const reported = new Set();
 const titles = new Map(), descs = new Map();
 const rows = [];
+const typeCount = new Map();
 for (const f of htmlFiles()) {
   const html = readFileSync(join(root, f), 'utf8');
   const url = urlOf(f);
@@ -41,8 +42,26 @@ for (const f of htmlFiles()) {
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   if (url !== '/404' && canonical !== SITE + url) err(`canonical ${canonical}`);
   for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
-    try { JSON.parse(json); } catch (e) { err(`JSON-LD no válido: ${e.message}`); }
+    let data;
+    try { data = JSON.parse(json); } catch (e) { err(`JSON-LD no válido: ${e.message}`); continue; }
+    const graph = data['@graph'] || [data];
+    const types = graph.map(n => n['@type']);
+    typeCount.set(url, [...(typeCount.get(url) || []), ...types]);
+    // Las preguntas del FAQPage tienen que ser las mismas que se ven, y sus respuestas, estar en la página
+    const faqHtml = html.match(/<section class="faq"[\s\S]*?<\/section>/)?.[0] ?? '';
+    const tight = s => s.replace(/\s+([.,;:)])/g, '$1');
+    const visible = [...faqHtml.matchAll(/<summary>([\s\S]*?)<\/summary>/g)].map(m => text(m[1]));
+    for (const n of graph.filter(n => n['@type'] === 'FAQPage')) {
+      const qs = n.mainEntity.map(q => q.name);
+      if (qs.length !== visible.length || qs.some(q => !visible.includes(q))) err('las preguntas del FAQPage no coinciden con las visibles');
+      for (const q of n.mainEntity) if (!tight(text(faqHtml)).includes(tight(q.acceptedAnswer.text))) err(`respuesta del FAQPage que no se ve igual: ${q.name}`);
+    }
+    // Los datos de la organización tienen que coincidir con los de la web
+    for (const n of graph.filter(n => n['@type'] === 'ProfessionalService')) {
+      if (n.name !== 'JENO STUDIO' || !html.includes(`mailto:${n.email}`) || !n.sameAs.every(s => html.includes(`href="${s}"`))) err('los datos del ProfessionalService no coinciden con la página');
+    }
   }
+  if (!['/', '/404'].includes(url) && !(typeCount.get(url) || []).includes('BreadcrumbList')) err('sin BreadcrumbList');
   for (const [img] of html.matchAll(/<img\b[^>]*>/g)) if (!/\salt="/.test(img)) err(`imagen sin alt: ${img.slice(0, 80)}`);
   for (const [, href] of html.matchAll(/href="(\/[^"]*)"/g)) if (!exists(href)) err(`enlace roto ${href}`);
   for (const [, src] of html.matchAll(/(?:src|poster|data-src|data-preview)="(\/[^"]*)"/g)) if (!exists(src)) err(`archivo que no existe ${src}`);
@@ -51,6 +70,6 @@ for (const f of htmlFiles()) {
   const h1 = text(html.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? '');
   rows.push({ url, words, title, h1 });
 }
-for (const r of rows) console.log(`${String(r.words).padStart(5)}  ${r.url}`);
+for (const r of rows) console.log(`${String(r.words).padStart(5)}  ${r.url.padEnd(48)} ${(typeCount.get(r.url) || []).join(', ')}`);
 console.log(problems.length ? `\n${problems.length} problemas:\n${problems.join('\n')}` : '\nSin problemas.');
 process.exitCode = problems.length ? 1 : 0;

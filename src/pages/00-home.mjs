@@ -1,5 +1,45 @@
 // Portada: diseño web en Almería
-import { faq, contact } from '../layout.mjs';
+import { faq, contact, faqSchema, abs } from '../layout.mjs';
+import { SITE, BRAND, EMAIL, INSTAGRAM, OG_IMAGE, areaServed, services, sectors } from '../data.mjs';
+
+// Catálogo de servicios: las páginas de servicio y de sector, más el logo, que no tiene página propia
+const offers = [
+  ...services.map(s => ({ name: s.label, url: abs(s.path) })),
+  ...sectors.map(s => ({ name: `Páginas web para ${s.label.toLowerCase()}`, url: abs(s.path) })),
+  { name: 'Diseño de logo e imagen de marca', url: abs('/presupuesto') },
+];
+
+const organization = {
+  '@type': 'ProfessionalService',
+  '@id': `${SITE}/#organization`,
+  name: BRAND,
+  alternateName: 'Jeno Studio',
+  description: 'Estudio de Almería que hace páginas web a medida para negocios, rápidas y pensadas para el móvil, SEO local y ficha de Google Maps, tiendas online con Shopify, mantenimiento web, vídeos con IA, diseño de logo y gestión de redes sociales.',
+  slogan: 'Webs que traen clientes a tu negocio',
+  url: `${SITE}/`,
+  logo: { '@type': 'ImageObject', url: abs('/assets/apple-touch-icon.png'), width: 180, height: 180 },
+  image: abs(OG_IMAGE),
+  email: EMAIL,
+  address: { '@type': 'PostalAddress', addressLocality: 'Almería', addressRegion: 'Andalucía', addressCountry: 'ES' },
+  areaServed,
+  sameAs: [INSTAGRAM],
+  knowsAbout: ['Diseño web', 'Diseño de páginas web para móvil', 'SEO local', 'Perfil de Empresa en Google', 'Google Maps', 'Tiendas online con Shopify', 'Mantenimiento web', 'Vídeos con inteligencia artificial', 'Diseño de logo', 'Gestión de redes sociales', 'Visibilidad en buscadores con IA'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de JENO STUDIO',
+    itemListElement: offers.map(o => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: o.name, url: o.url, provider: { '@id': `${SITE}/#organization` } } })),
+  },
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': `${SITE}/#website`,
+  url: `${SITE}/`,
+  name: BRAND,
+  alternateName: 'Jeno Studio',
+  inLanguage: 'es-ES',
+  publisher: { '@id': `${SITE}/#organization` },
+};
 
 export const homeFaq = [
   { q: '¿Qué es eso de «te lo miramos gratis»?', a: 'Nos dices tu negocio y revisamos tu web y tu ficha de Google. Te contamos qué está frenando a tus clientes y qué cambiaríamos, sin compromiso.' },
@@ -14,6 +54,7 @@ export const homeFaq = [
 export default {
   path: '/',
   title: 'Diseño web en Almería que trae clientes | JENO STUDIO',
+  schema: [organization, website, faqSchema(homeFaq)],
   description: 'Diseño de páginas web en Almería: rápidas, pensadas para el móvil y listas para salir en Google y Google Maps. Te miramos tu web gratis y sin compromiso.',
   body: `
 <!-- Hero -->

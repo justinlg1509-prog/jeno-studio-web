@@ -1,5 +1,5 @@
 // Formulario de presupuesto (lo hace funcionar presupuesto.js)
-import { breadcrumbs } from '../layout.mjs';
+import { breadcrumbs, ORG, abs } from '../layout.mjs';
 
 const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Presupuesto', path: '/presupuesto' }];
 
@@ -8,6 +8,7 @@ export default {
   title: 'Pide presupuesto para tu web | JENO STUDIO',
   description: 'Pide presupuesto para tu página web, tienda online, vídeos con IA, redes sociales o Google Maps. Te respondemos en menos de 24 h por Instagram o WhatsApp.',
   crumbs,
+  schema: [{ '@type': 'ContactPage', name: 'Pide presupuesto a JENO STUDIO', url: abs('/presupuesto'), about: ORG, inLanguage: 'es-ES' }],
   mainClass: 'quote',
   bodyAttr: 'data-no-float',
   scripts: ['/presupuesto.js'],
