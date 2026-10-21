@@ -37,7 +37,7 @@
   banner.setAttribute('aria-label', 'Aviso de cookies');
   banner.hidden = true;
   banner.innerHTML = `
-    <p><strong>¿Nos dejas medir las visitas?</strong> Usamos Google Analytics para saber cuánta gente entra y qué le interesa. Solo se activa si aceptas. <a href="/cookies">Más información</a></p>
+    <p><strong>¿Nos dejas medir las visitas?</strong> Usamos Google Analytics para saber cuánta gente entra y qué le interesa. Solo se activa si aceptas. <a href="/cookies">Ver la política de cookies</a></p>
     <div class="consent-actions">
       <button class="btn btn-line" type="button" data-consent="denied">Rechazar</button>
       <button class="btn btn-gold" type="button" data-consent="granted">Aceptar</button>

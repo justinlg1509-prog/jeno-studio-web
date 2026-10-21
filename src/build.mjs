@@ -15,8 +15,10 @@ for (const file of readdirSync(pagesDir).filter(f => f.endsWith('.mjs')).sort())
   pages.push(...[mod.default].flat());
 }
 
-// "/" → index.html, "/blog/x" → blog/x.html (Vercel las sirve sin .html por cleanUrls)
-const fileFor = path => path === '/' ? 'index.html' : `${path.slice(1)}.html`;
+// "/" → index.html, "/blog/x" → blog/x.html (Vercel las sirve sin .html por cleanUrls).
+// Si una ruta tiene páginas debajo (/blog, /trabajos), va en su carpeta: blog/index.html
+const fileFor = path => path === '/' ? 'index.html'
+  : pages.some(p => p.path.startsWith(`${path}/`)) ? `${path.slice(1)}/index.html` : `${path.slice(1)}.html`;
 
 const seen = new Set();
 for (const page of pages) {

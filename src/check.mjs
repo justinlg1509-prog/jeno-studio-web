@@ -12,11 +12,11 @@ const htmlFiles = (dir = root, base = '') => readdirSync(dir).flatMap(f => {
   const p = join(dir, f);
   return statSync(p).isDirectory() ? htmlFiles(p, `${base}${f}/`) : f.endsWith('.html') ? [`${base}${f}`] : [];
 });
-const urlOf = f => f === 'index.html' ? '/' : `/${f.replace(/\.html$/, '')}`;
+const urlOf = f => f === 'index.html' ? '/' : `/${f.replace(/(\/index)?\.html$/, '')}`;
 const exists = path => {
   const clean = path.split(/[?#]/)[0];
   if (clean === '/' || clean === '') return true;
-  return existsSync(join(root, `${clean.slice(1)}.html`)) || existsSync(join(root, clean.slice(1)));
+  return existsSync(join(root, `${clean.slice(1)}.html`)) || existsSync(join(root, clean.slice(1), 'index.html')) || (/\.\w+$/.test(clean) && existsSync(join(root, clean.slice(1))));
 };
 const text = html => html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
 

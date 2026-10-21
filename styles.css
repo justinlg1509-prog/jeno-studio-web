@@ -196,7 +196,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 /* ---------- Manifesto ---------- */
 .manifesto { padding-block: clamp(96px, 14vw, 200px); border-top: 1px solid var(--rule-dark); }
 .manifesto-text { font-size: clamp(30px, 4.4vw, 68px); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; word-spacing: .05em; max-width: 22ch; }
-.manifesto-text .w { color: rgba(244, 239, 228, .16); transition: color .35s; }
+/* Apagadas, pero con el contraste mínimo de 3:1 que pide el texto grande */
+.manifesto-text .w { color: rgba(244, 239, 228, .36); transition: color .35s; }
 .manifesto-text .w.on { color: var(--bone); }
 .manifesto-text .w.gold.on { color: var(--gold); }
 
