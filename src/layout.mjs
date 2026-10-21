@@ -48,7 +48,7 @@ const igButton = (label = 'Escríbenos por Instagram') =>
   `<a class="btn btn-line" href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>${label}</a>`;
 
 // Cabecera de las páginas interiores: migas, H1, la frase que dice qué es y para quién, y botones
-export function pageHero({ crumbs, h1, lead, extra = '' }) {
+export function pageHero({ crumbs, h1, lead, extra = '', actions }) {
   return `<section class="page-hero">
       <div class="hero-glow page-glow" aria-hidden="true"></div>
       <div class="wrap page-hero-inner">
@@ -57,8 +57,8 @@ export function pageHero({ crumbs, h1, lead, extra = '' }) {
         <p class="page-lead">${lead}</p>
         ${extra}
         <div class="hero-actions">
-          <a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
-          ${igButton()}
+          ${actions ?? `<a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
+          ${igButton()}`}
         </div>
       </div>
     </section>`;
