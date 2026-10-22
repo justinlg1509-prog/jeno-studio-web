@@ -129,7 +129,6 @@ const cases = [
       title: 'Lo que hicimos',
       html: `
           <p>Diseñamos la web en sus tres idiomas y la optimizamos para los cuatro apartados que mide la auditoría de PageSpeed: rendimiento, accesibilidad, buenas prácticas y SEO.</p>
-          <p>[RELLENAR: detalle concreto de lo que se cambió en la web de Ecological Villas (por ejemplo, imágenes, código, textos o estructura)].</p>
           <p>Si tu web también va lenta, es justo lo que hacemos en el <a href="/rediseno-web">rediseño web</a>. Y si tienes una empresa de reformas o construcción, mira nuestras <a href="/paginas-web-para-empresas-de-reformas">páginas web para empresas de reformas</a>.</p>`,
     }),
     result: `
@@ -159,7 +158,6 @@ const cases = [
     }),
     result: `
           <p>Una web trilingüe que presenta a Alex con una sola idea, ordena su experiencia alrededor de ella y lleva al lector hasta su libro. Puedes verla en <a href="https://www.fialka.es/es/" target="_blank" rel="noopener">fialka.es</a>.</p>
-          <p>[RELLENAR: algún resultado medible del proyecto, si lo hay (consultas, ventas del libro, visitas)].</p>
           <p>Es un buen ejemplo de lo que hacemos en un <a href="/rediseno-web">rediseño web</a>, y de una web en varios idiomas como las que preparamos para negocios de <a href="/diseno-web-roquetas-de-mar">Roquetas de Mar</a> con clientes extranjeros.</p>`,
   }),
   casePage({
@@ -180,7 +178,6 @@ const cases = [
     }),
     result: `
           <p>Una web nueva, en español e inglés, con un mensaje que se entiende a la primera y dos herramientas propias, el test y la calculadora, que dan al visitante un motivo para escribir. Puedes verla en <a href="https://www.elitesolutionpro.com/" target="_blank" rel="noopener">elitesolutionpro.com</a>.</p>
-          <p>[RELLENAR: algún resultado medible del proyecto, si lo hay (consultas por WhatsApp, visitas)].</p>
           <p>Si tu web funciona pero no convence, es lo que hacemos en un <a href="/rediseno-web">rediseño web</a>. Y para que te encuentren quienes buscan tu servicio, lo combinamos con el <a href="/seo-local-almeria">SEO local y Google Maps</a>.</p>`,
   }),
 ];

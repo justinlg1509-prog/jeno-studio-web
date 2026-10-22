@@ -63,8 +63,7 @@ export default article({
         <li><strong>No pagar dos veces lo mismo.</strong> Revisa si tu hosting ya incluye el certificado de seguridad o el correo antes de contratarlos aparte.</li>
       </ul>
       <p>Lo que no conviene recortar son las copias de seguridad y la renovación del dominio: son baratas y evitan los peores sustos.</p>` },
-    { id: 'nuestro-mantenimiento', title: 'Cuánto cuesta el mantenimiento con JENO STUDIO', html: `
-      <p>[RELLENAR: precio del mantenimiento mensual de JENO STUDIO y qué incluye].</p>
+    { id: 'nuestro-mantenimiento', title: 'El mantenimiento web de JENO STUDIO', html: `
       <p>Nuestro mantenimiento web mensual funciona así: tú nos escribes por Instagram, WhatsApp o email y nosotros lo hacemos, y además nos ocupamos del hosting, la seguridad y las copias de seguridad. Si estás pensando en una web nueva, también te puede interesar <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web en España</a>.</p>` },
   ],
   cta: {
