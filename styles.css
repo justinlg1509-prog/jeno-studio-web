@@ -52,6 +52,8 @@ h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -.035em; word-spacing:
 p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spacing: -.01em; color: var(--gold); }
+/* La palabra dorada en serif es la firma de la marca: una por página, en el H1. En el resto de títulos se lee como texto normal */
+:is(h2, h3) em { font-family: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; color: inherit; }
 ::selection { background: var(--gold); color: var(--night); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
 
@@ -140,8 +142,9 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .btn-lg { min-height: 62px; padding: 0 34px; font-size: 18px; }
 
 .link-arrow { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; border-bottom: 2px solid var(--gold); padding-bottom: 4px; }
-.link-arrow::after { content: "↗"; transition: transform .2s var(--ease); }
-.link-arrow:hover::after { transform: translate(2px, -2px); }
+/* La flecha ↗ solo en los enlaces que abren otra web: avisa de que se sale de aquí */
+.link-arrow[target="_blank"]::after { content: "↗"; transition: transform .2s var(--ease); }
+.link-arrow[target="_blank"]:hover::after { transform: translate(2px, -2px); }
 
 /* ---------- Hero ---------- */
 .hero { position: relative; overflow: hidden; padding-top: calc(var(--header) + clamp(48px, 9vh, 110px)); }
@@ -290,7 +293,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .service:nth-child(n+5) { border-top: 1px solid var(--rule-light); margin-top: 20px; }
 .service ul { margin-bottom: 24px; }
 .service-link { align-self: flex-start; margin-top: auto; padding-bottom: 3px; border-bottom: 2px solid var(--night); font-size: 15px; font-weight: 700; }
-.service-link::after { content: " →"; }
+
 .service-link:hover { border-color: transparent; }
 .service h3 { font-size: clamp(24px, 2.2vw, 32px); letter-spacing: -.035em; margin-bottom: 14px; }
 .service p { font-size: 16px; margin-bottom: 22px; }
@@ -315,8 +318,6 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 }
 
 .case-links { display: flex; flex-wrap: wrap; gap: 16px 32px; }
-.link-internal::after { content: "→"; }
-.link-internal:hover::after { transform: translateX(3px); }
 .related-more { margin-top: clamp(28px, 3vw, 40px); }
 
 /* ---------- Marquee ---------- */
@@ -410,7 +411,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .footer-legal [aria-current] { color: var(--bone); }
 /* Enlaces a todas las páginas de servicio, zona y sector */
 .footer-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 36px 40px; margin-top: 44px; padding-top: 40px; border-top: 1px solid var(--rule-dark); }
-.footer-title { margin-bottom: 16px; color: var(--smoke); font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.footer-title { margin-bottom: 16px; color: var(--smoke); font-size: 13px; font-weight: 600; }
 .footer-col ul { display: grid; gap: 10px; font-size: 15px; line-height: 1.4; }
 .footer-col a { color: var(--bone); font-weight: 500; transition: color .2s; }
 .footer-col a:hover, .footer-col [aria-current] { color: var(--gold); }
@@ -462,27 +463,43 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .include-list h3 { margin-bottom: 10px; font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -.03em; line-height: 1.15; }
 .include-list p { font-size: 16px; }
 
-/* Precios: tarjetas en una columna en el móvil y en rejilla al crecer */
+/* Precios: una lista de filas, como los trabajos y las zonas. La recomendada va en un bloque dorado */
 .price-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .price-jump a { padding: 10px 16px; border: 1px solid var(--rule-dark); border-radius: 99px; font-weight: 600; font-size: 15px; transition: border-color .2s, color .2s; }
 .price-jump a:hover { border-color: var(--gold); color: var(--gold); }
 .prices-head { max-width: 40em; margin-bottom: clamp(28px, 4vw, 48px); }
 .prices-head p:last-child { margin-top: 16px; color: rgba(244, 239, 228, .8); }
 .prices-kind { margin-bottom: 12px; color: var(--gold); font-weight: 600; font-size: 15px; }
-.price-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
-.price-card { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 28px 22px 22px; border: 1px solid var(--rule-dark); border-radius: 20px; background: var(--coal); }
-.price-card.is-featured { border-color: var(--gold); box-shadow: 0 20px 60px -30px rgba(240, 180, 76, .45); }
-.price-badge { position: absolute; top: -13px; left: 22px; padding: 4px 12px; border-radius: 99px; background: var(--gold); color: var(--night); font-size: 13px; font-weight: 700; }
-.price-card h3 { font-size: clamp(22px, 2vw, 26px); letter-spacing: -.03em; line-height: 1.15; }
-.price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; }
-.price-num { font-size: clamp(40px, 4vw, 52px); font-weight: 700; letter-spacing: -.05em; line-height: 1; }
-.price-num.price-gift { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(26px, 2.6vw, 32px); letter-spacing: -.02em; color: var(--gold); }
+.price-list { border-top: 1px solid var(--bone); }
+.price-row { display: grid; gap: 16px; padding: 28px 0; border-bottom: 1px solid var(--rule-dark); }
+.price-row h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -.035em; line-height: 1.1; }
+.price-badge { padding: 4px 12px; border-radius: 99px; background: var(--night); color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0; }
+.price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.price-num { font-size: clamp(42px, 4.6vw, 60px); font-weight: 700; letter-spacing: -.055em; line-height: .95; }
+.price-num.price-gift { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -.035em; line-height: 1.1; color: var(--gold); }
 .price-per { color: var(--smoke); font-weight: 600; font-size: 15px; }
-.price-items { flex: 1; border-top: 1px solid var(--rule-dark); }
-.price-items li { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--rule-dark); color: rgba(244, 239, 228, .85); font-size: 16px; }
-.price-items li::before { content: "✓"; flex: none; color: var(--gold); font-weight: 700; }
-.price-actions { display: grid; gap: 10px; }
-.price-actions .btn { width: 100%; min-height: 50px; padding: 0 18px; }
+.price-items { display: grid; gap: 8px; font-size: 16px; color: rgba(244, 239, 228, .85); }
+.price-items li { display: flex; gap: 10px; }
+.price-items li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: .6em; border-radius: 50%; background: var(--gold); }
+.price-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-actions .btn { min-height: 50px; padding: 0 16px; }
+/* La recomendada: el mismo dorado que «Lo que hacemos», con el texto en negro */
+.price-row.is-featured { margin-inline: -16px; padding-inline: 16px; border-radius: 16px; border-bottom-color: transparent; background: var(--gold); color: var(--night); }
+.is-featured .price-num, .is-featured .price-num.price-gift { color: var(--night); }
+.is-featured .price-per { color: rgba(13, 12, 10, .7); }
+.is-featured .price-items { color: rgba(13, 12, 10, .85); }
+.is-featured .price-items li::before { background: var(--night); }
+.is-featured .btn-gold { background: var(--night); color: var(--bone); box-shadow: none; }
+.is-featured .btn-gold:hover { background: var(--coal-2); }
+.is-featured .btn-line { border-color: var(--night); color: var(--night); }
+.is-featured .btn-line:hover { background: rgba(13, 12, 10, .08); }
+.is-featured .btn-icon { color: var(--night); }
+.is-featured :focus-visible { outline-color: var(--night); }
+@media (min-width: 900px) {
+  .price-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr) 200px; gap: 32px; align-items: start; padding: 34px 0; }
+  .price-row.is-featured { margin-inline: -24px; padding-inline: 24px; }
+  .price-actions { grid-template-columns: 1fr; }
+}
 .prices-common { margin-top: 24px; color: rgba(244, 239, 228, .8); }
 .prices-common strong { color: var(--bone); }
 
@@ -502,7 +519,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 /* Trabajos y reels relacionados */
 .related { padding-top: clamp(72px, 9vw, 130px); border-top: 1px solid var(--rule-dark); }
 .related .work-head h2, .cases-page .block-title { font-size: clamp(40px, 6vw, 92px); letter-spacing: -.05em; }
-.work-row.is-internal .work-place::after { content: " →"; }
+
 .related-reels { border-top: 1px solid var(--rule-dark); }
 .related-intro { margin: -12px 0 clamp(28px, 3vw, 40px); max-width: 36em; color: var(--smoke); }
 .cases-page { padding-top: clamp(72px, 9vw, 130px); border-top: 1px solid var(--rule-dark); }
@@ -518,7 +535,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .work-card-type { color: var(--smoke); font-size: 15px; }
 .work-card-link { justify-self: start; margin-top: 6px; padding-bottom: 3px; border-bottom: 2px solid var(--gold); font-weight: 700; font-size: 15px; }
 .work-card-link:not(.link-internal)::after { content: " ↗"; }
-.work-card-link.link-internal::after { content: " →"; }
+
 @media (hover: hover) { .work-card a:hover img { transform: scale(1.02); } .work-card a:hover .work-card-name { color: var(--gold); } }
 
 /* Página de un caso */
@@ -536,7 +553,6 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .blog-title { font-size: clamp(24px, 2.8vw, 38px); letter-spacing: -.04em; line-height: 1.1; transition: color .3s; }
 .blog-excerpt { grid-column: 3; grid-row: 1 / span 2; color: var(--smoke); font-size: 16px; }
 .blog-more { grid-column: 2; justify-self: start; padding-bottom: 3px; border-bottom: 2px solid var(--gold); font-weight: 700; font-size: 15px; }
-.blog-more::after { content: " →"; }
 @media (hover: hover) { .blog-item:hover .blog-title { color: var(--gold); } }
 
 .post-hero { padding-bottom: clamp(40px, 5vw, 64px); }

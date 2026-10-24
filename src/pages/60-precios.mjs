@@ -9,9 +9,8 @@ const price = p => p.gift
   ? `<p class="price"><span class="price-num price-gift">${p.gift}</span></p>`
   : `<p class="price">${p.from ? '<span class="price-per">desde</span> ' : ''}<span class="price-num">${p.price} €</span><span class="price-per">${p.period ? `/${p.period}` : ''} + IVA</span></p>`;
 
-const card = p => `<li class="price-card${p.badge ? ' is-featured' : ''}">
-            ${p.badge ? `<p class="price-badge">${p.badge}</p>` : ''}
-            <h3>${p.name}</h3>
+const card = p => `<li class="price-row${p.badge ? ' is-featured' : ''}">
+            <h3>${p.name}${p.badge ? ` <span class="price-badge">${p.badge}</span>` : ''}</h3>
             ${price(p)}
             <ul class="price-items">${p.items.map(i => `<li>${i}</li>`).join('')}</ul>
             <div class="price-actions">
@@ -27,10 +26,10 @@ const section = ({ id, title, kind, intro, common, plans }) => `<section class="
           <h2 class="block-title" id="${id}-title">${title}</h2>
           <p>${intro}</p>
         </div>
-        <ul class="price-grid">
+        <ul class="price-list">
           ${plans.map(card).join('\n          ')}
         </ul>
-        ${common ? `<p class="prices-common"><strong>Todos incluyen:</strong> ${common.join(' · ')}.</p>` : ''}
+        ${common ? `<p class="prices-common"><strong>Todos incluyen:</strong> ${common.join(", ")}.</p>` : ''}
       </div>
     </section>`;
 
