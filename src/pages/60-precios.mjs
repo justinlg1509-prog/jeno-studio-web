@@ -84,7 +84,7 @@ ${pageHero({
   h1: 'Precios <em>claros</em>, sin sorpresas',
   lead: `Sabes lo que pagas antes de empezar. Webs desde ${fromPrice('webs')}, redes desde ${fromPrice('redes', { monthly: true })} y ficha de Google desde ${fromPrice('google')}, todo + IVA y sin permanencia en las cuotas.`,
   actions: `<a class="btn btn-gold btn-lg" href="${INSTAGRAM}" data-instagram data-location="precios_hero" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Te ayudamos a elegir</a>
-          <a class="btn btn-line btn-lg" href="/presupuesto">Empezar</a>`,
+          <a class="btn btn-line btn-lg" href="/presupuesto">Empezar mi proyecto</a>`,
   extra: `<nav class="price-jump" aria-label="Secciones de precios">
           ${priceSections.map(s => `<a href="#${s.id}">${s.title}</a>`).join('\n          ')}
           <a href="#packs">Packs</a>
