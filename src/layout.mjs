@@ -110,17 +110,22 @@ export function process({ title = 'Cómo trabajamos', intro = 'Sin tecnicismos. 
     </section>`;
 }
 
-export function workRow(w, { level = 'h3' } = {}) {
-  const internal = w.hasCase;
-  const href = internal ? `/trabajos/${w.id}` : w.url;
-  const attrs = internal ? '' : ' target="_blank" rel="noopener"';
-  return `<li>
-            <a class="work-row${internal ? ' is-internal' : ''}" href="${href}"${attrs} data-preview="/assets/work/${w.img}.webp">
-              <span class="work-name">${w.name}</span>
-              <span class="work-type">${w.type}</span>
-              <span class="work-place">${w.place}</span>
-              <img class="work-thumb" src="/assets/work/${w.img}-sm.webp" width="760" height="475" alt="Captura de la ${w.alt.charAt(0).toLowerCase() + w.alt.slice(1)}" loading="lazy" decoding="async">
-            </a>
+// Cada trabajo es una carpeta: pestaña con el nombre, la captura grande y la del móvil.
+// Las carpetas se pegan una encima de otra al bajar (--i las escalona)
+export function workRow(w, i = 0) {
+  const site = `<a href="${w.url}" target="_blank" rel="noopener">Visitar la web</a>`;
+  const href = w.hasCase ? `/trabajos/${w.id}` : w.url;
+  const attrs = w.hasCase ? '' : ' target="_blank" rel="noopener"';
+  return `<li class="folder" style="--i:${i}">
+            <article class="folder-band">
+              <h3 class="folder-tab">${w.name}</h3>
+              <p class="folder-meta"><span>${w.type}</span><span>${w.place}</span></p>
+              <a class="folder-shot" href="${href}"${attrs} tabindex="-1" aria-hidden="true"><img src="/assets/work/${w.img}.webp" width="1440" height="900" alt="Captura de la ${w.alt.charAt(0).toLowerCase() + w.alt.slice(1)}" loading="lazy" decoding="async"></a>
+              <div class="folder-copy">
+                <img class="folder-phone" src="/assets/work/${w.img}-mobile.webp" width="560" height="1212" alt="La ${w.alt.charAt(0).toLowerCase() + w.alt.slice(1)} en el móvil" loading="lazy" decoding="async">
+                <div class="folder-links">${w.hasCase ? `<a class="link-internal" href="/trabajos/${w.id}">Ver el caso</a>${site}` : site}</div>
+              </div>
+            </article>
           </li>`;
 }
 
@@ -131,12 +136,11 @@ export function relatedWorks({ title = 'Trabajos <em>reales</em>', intro, ids })
           <h2>${title}</h2>
           <p>${intro}</p>
         </div>
-        <ul class="work-list">
-          ${ids.map(id => workRow(works.find(w => w.id === id))).join('\n          ')}
+        <ul class="folders" style="--n:${ids.length}">
+          ${ids.map((id, i) => workRow(works.find(w => w.id === id), i)).join('\n          ')}
         </ul>
         <p class="related-more"><a class="link-arrow link-internal" href="/trabajos">Ver todos los trabajos</a></p>
       </div>
-      <div class="work-preview" aria-hidden="true"><img alt=""></div>
     </section>`;
 }
 
@@ -148,7 +152,7 @@ export function faq(items, { title = 'Preguntas frecuentes', lead = '¿Tu duda n
           <p>${lead}</p>
         </div>
         <div class="faq-list">
-          ${items.map(({ q, a }) => `<details>
+          ${items.map(({ q, a }, i) => `<details name="${id}"${i === 0 ? ' open' : ''}>
             <summary>${q}</summary>
             <p>${a}</p>
           </details>`).join('\n          ')}
@@ -159,15 +163,18 @@ export function faq(items, { title = 'Preguntas frecuentes', lead = '¿Tu duda n
 
 export function contact({ title = '¿Quieres saber qué ve Google de <em>tu negocio</em>?', text = 'Cuéntanos tu negocio y qué necesitas. Revisamos tu web y tu ficha de Google y te respondemos por Instagram o WhatsApp con lo que cambiaríamos, sin compromiso.', badge = 'Te lo miramos gratis' } = {}) {
   return `<section class="contact" id="contacto">
-      <div class="hero-glow contact-glow" aria-hidden="true"></div>
       <div class="wrap contact-inner">
-        <p class="contact-badge"><span aria-hidden="true">✓</span> ${badge}</p>
         <h2>${title}</h2>
-        <p>${text}</p>
-        <div class="contact-actions">
-          <a class="btn btn-gold btn-lg" href="/presupuesto">Empezar</a>
-          <a class="btn btn-line btn-lg" href="/precios">Ver precios</a>
-          <a class="contact-mail" href="mailto:${EMAIL}">${EMAIL}</a>
+        <div class="contact-foot">
+          <div>
+            <p class="contact-offer">${badge}</p>
+            <p>${text}</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn btn-dark btn-lg" href="/presupuesto">Empezar</a>
+            <a class="btn btn-line btn-lg" href="/precios">Ver precios</a>
+            <a class="contact-mail" href="mailto:${EMAIL}">${EMAIL}</a>
+          </div>
         </div>
       </div>
     </section>`;

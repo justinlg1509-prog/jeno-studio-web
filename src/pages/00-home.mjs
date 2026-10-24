@@ -1,7 +1,7 @@
 // Portada: diseño web en Almería
-import { faq, contact, faqSchema, abs } from '../layout.mjs';
-import { pricesSentence, planById, priceLabel } from '../precios.mjs';
-import { SITE, BRAND, EMAIL, INSTAGRAM, OG_IMAGE, areaServed, services, sectors } from '../data.mjs';
+import { faq, contact, faqSchema, abs, workRow } from '../layout.mjs';
+import { pricesSentence, planById, priceLabel, priceSections, packs } from '../precios.mjs';
+import { SITE, BRAND, EMAIL, INSTAGRAM, OG_IMAGE, areaServed, services, sectors, works } from '../data.mjs';
 import { priceSummary } from '../precios.mjs';
 
 // Catálogo de servicios: las páginas de servicio y de sector, más el logo, que no tiene página propia
@@ -53,6 +53,58 @@ export const homeFaq = [
   { q: '¿Podré hacer cambios cuando esté publicada?', a: 'Sí. Podemos encargarnos de las actualizaciones con el <a href="/mantenimiento-web">mantenimiento web</a>, o explicarte cómo hacer tú mismo los cambios sencillos.' },
 ];
 
+// Calculadora de precios: eliges la web y lo que quieras añadir y ves el total.
+// Sin JavaScript es una lista de precios que se envía a /presupuesto con el plan elegido
+const section = id => priceSections.find(s => s.id === id);
+const webPlans = section('webs').plans;
+const pack = packs.find(p => p.id === 'pack-web-ficha');
+const googleNew = planById('google-crear');
+const pick = (name, p, { type = 'radio', checked = false, note = '' } = {}) => `<label class="pick"><input type="${type}" name="${name}" value="${p.id}" data-price="${p.period ? 0 : p.price}" data-month="${p.period ? p.price : 0}"${p.from ? ' data-from' : ''}${checked ? ' checked' : ''}><span>${p.name}${note ? ` <small>${note}</small>` : ''} <b>${priceLabel(p)}</b></span></label>`;
+function ticket() {
+  return `<section class="ticket-wrap" aria-labelledby="precios-title">
+  <div class="wrap">
+    <form class="ticket" action="/presupuesto" method="get" data-calc data-pack="${pack.id}" data-pack-price="${pack.price}" data-pack-web="web-profesional" data-pack-extra="${googleNew.id}">
+      <div class="ticket-main">
+        <h2 id="precios-title">Precios <em>claros</em></h2>
+        <fieldset>
+          <legend>Tu web</legend>
+          <div class="ticket-options">
+            ${webPlans.map(p => pick('plan', p, { checked: !!p.badge, note: p.items[0] })).join('\n            ')}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Añade si quieres</legend>
+          <div class="ticket-options">
+            ${pick('extra', googleNew, { type: 'checkbox', note: 'Ficha de Google' })}
+            ${section('mantenimiento').plans.map(p => pick('extra', p, { type: 'checkbox', note: 'Mantenimiento' })).join('\n            ')}
+          </div>
+        </fieldset>
+        <ul class="ticket-terms">
+          <li>Pago 50/50: al empezar y al terminar</li>
+          <li>2 rondas de cambios</li>
+          <li>El dominio va a tu nombre</li>
+          <li>Cuotas sin permanencia</li>
+        </ul>
+      </div>
+      <div class="ticket-stub">
+        <div>
+          <p class="ticket-total" aria-live="polite"><span data-total>${webPlans.find(p => p.badge).price} €</span><small data-month></small></p>
+          <p class="ticket-note">+ IVA</p>
+          <p class="ticket-note" data-pack-note hidden>Con el pack ${pack.name}</p>
+        </div>
+        <div class="ticket-go">
+          <button class="btn btn-dark btn-lg" type="submit">Empezar con esto</button>
+          <a href="/precios">Ver todos los precios</a>
+        </div>
+      </div>
+    </form>
+    <nav class="ticket-more" aria-label="Más precios">
+      ${priceSummary.map(s => `<a href="${s.href}">${s.label} desde <strong>${s.from}</strong></a>`).join('\n      ')}
+    </nav>
+  </div>
+</section>`;
+}
+
 export default {
   path: '/',
   title: 'Diseño web en Almería que trae clientes | JENO STUDIO',
@@ -63,17 +115,23 @@ export default {
 <section class="hero" id="inicio">
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <p class="hero-kicker reveal-line">Diseño web + Google Maps · Almería y todo el mundo</p>
-    <h1 class="hero-title hero-title-long">
+    <h1 class="hero-title">
       <span class="line"><span>Diseño web en Almería</span></span>
-      <span class="line"><span>que trae <em>clientes</em></span></span>
-      <span class="line"><span>a tu negocio</span></span>
+      <span class="line"><span>que trae <em>clientes</em> a tu negocio</span></span>
     </h1>
     <div class="hero-foot">
-      <p>JENO STUDIO diseña páginas web en Almería para negocios que quieren más clientes: rápidas, claras, pensadas para el móvil y preparadas para salir en Google y en Google Maps. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
-      <div class="hero-actions reveal-line">
-        <a class="btn btn-gold" href="/precios">Ver precios</a>
-        <a class="btn btn-line" href="#trabajos">Ver trabajos</a>
+      <div>
+        <p class="reveal-line">JENO STUDIO diseña páginas web en Almería para negocios que quieren más clientes: rápidas, claras, pensadas para el móvil y preparadas para salir en Google y en Google Maps. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
+        <div class="hero-actions reveal-line">
+          <a class="btn btn-gold btn-lg" href="/precios">Ver precios</a>
+          <a class="btn btn-line btn-lg" href="#trabajos">Ver trabajos</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <a class="hero-shot" href="/trabajos/enterprise-thinking"><img src="/assets/work/fialka.webp" width="1440" height="900" fetchpriority="high" decoding="async" alt="La web de Enterprise Thinking, de Alex Fialka, que hicimos nosotros"><span>Enterprise Thinking</span></a>
+        <a class="hero-reel" href="https://www.instagram.com/jeno.studi0/reel/DemAScVK_1i/" target="_blank" rel="noopener" aria-label="Reel de Instagram: Soy Google y tu negocio, para mí, no existe">
+          <video class="lazy-video" muted loop playsinline preload="none" poster="/assets/reels/reel-google.webp" aria-hidden="true"><source data-src="/assets/video/reel-google.mp4" type="video/mp4"></video>
+        </a>
       </div>
     </div>
   </div>
@@ -93,6 +151,7 @@ export default {
 <section class="manifesto" aria-label="Por qué importa tu web">
   <div class="wrap">
     <p class="manifesto-text" data-words>Tu web tiene tres segundos para convencer a un cliente. Si tarda, si en el móvil se ve mal o si no explica qué haces, se va con la competencia. Nosotros diseñamos esos tres segundos.</p>
+    <a class="manifesto-reel" href="https://www.instagram.com/jeno.studi0/reel/DeosGzxKIUL/" target="_blank" rel="noopener"><img src="/assets/reels/reel-cronometro.webp" width="540" height="960" loading="lazy" decoding="async" alt="Portada del reel de Instagram de JENO STUDIO sobre cuánto tardan en buscarte en Google"><span>¿De verdad te buscan en Google antes de contratarte? Lo hemos cronometrado</span></a>
   </div>
 </section>
 
@@ -101,53 +160,13 @@ export default {
   <div class="wrap">
     <div class="work-head">
       <h2>Trabajos</h2>
-      <p>Webs reales, para negocios reales. <span class="hint-fine">Pasa por encima para verlas; pulsa para visitarlas.</span><span class="hint-touch">Toca cualquiera para visitarla.</span></p>
+      <p>Webs reales, para negocios reales. Pulsa cualquiera para visitarla.</p>
     </div>
-    <ul class="work-list">
-      <li>
-        <a class="work-row" href="https://www.fialka.es/es/" target="_blank" rel="noopener" data-preview="/assets/work/fialka.webp">
-          <span class="work-name">Enterprise Thinking</span>
-          <span class="work-type">Consultoría directiva y libro</span>
-          <span class="work-place">Web en 3 idiomas</span>
-          <img class="work-thumb" src="/assets/work/fialka-sm.webp" width="760" height="475" alt="Captura de la web de Enterprise Thinking" loading="lazy" decoding="async">
-        </a>
-      </li>
-      <li>
-        <a class="work-row" href="https://www.elitesolutionpro.com/" target="_blank" rel="noopener" data-preview="/assets/work/elitesolutionpro.webp">
-          <span class="work-name">Elite Solution Pro</span>
-          <span class="work-type">Consultoría para emprendedores</span>
-          <span class="work-place">Nueva Jersey, EE. UU.</span>
-          <img class="work-thumb" src="/assets/work/elitesolutionpro-sm.webp" width="760" height="475" alt="Captura de la web de Elite Solution Pro" loading="lazy" decoding="async">
-        </a>
-      </li>
-      <li>
-        <a class="work-row" href="https://www.ecologicalvillas.com/" target="_blank" rel="noopener" data-preview="/assets/work/ecologicalvillas.webp">
-          <span class="work-name">Ecological Villas</span>
-          <span class="work-type">Constructora de casas pasivas</span>
-          <span class="work-place">Málaga y Granada</span>
-          <img class="work-thumb" src="/assets/work/ecologicalvillas-sm.webp" width="760" height="475" alt="Captura de la web de Ecological Villas" loading="lazy" decoding="async">
-        </a>
-      </li>
-      <li>
-        <a class="work-row" href="https://pethealthcareguide.com/" target="_blank" rel="noopener" data-preview="/assets/work/pethealthcareguide.webp">
-          <span class="work-name">Pet Health Care Guide</span>
-          <span class="work-type">Guía de salud para mascotas</span>
-          <span class="work-place">Portal de contenidos</span>
-          <img class="work-thumb" src="/assets/work/pethealthcareguide-sm.webp" width="760" height="475" alt="Captura de la web de Pet Health Care Guide" loading="lazy" decoding="async">
-        </a>
-      </li>
-      <li>
-        <a class="work-row" href="https://bar-meridiano.vercel.app/" target="_blank" rel="noopener" data-preview="/assets/work/bar-meridiano.webp">
-          <span class="work-name">Bar Meridiano</span>
-          <span class="work-type">Pub y coctelería</span>
-          <span class="work-place">Concepto para hostelería</span>
-          <img class="work-thumb" src="/assets/work/bar-meridiano-sm.webp" width="760" height="475" alt="Captura de la web de Bar Meridiano" loading="lazy" decoding="async">
-        </a>
-      </li>
+    <ul class="folders" style="--n:${works.length}">
+      ${works.map((w, i) => workRow(w, i)).join('\n      ')}
     </ul>
     <p class="related-more"><a class="link-arrow link-internal" href="/trabajos">Ver todos los trabajos</a></p>
   </div>
-  <div class="work-preview" aria-hidden="true"><img alt=""></div>
 </section>
 
 <!-- Casos -->
@@ -155,8 +174,8 @@ export default {
   <div class="wrap">
     <article class="case">
       <div class="case-copy">
-        <p class="case-client">Enterprise Thinking · Alex Fialka</p>
         <h3>Antes, una web que lo enseñaba todo. Ahora, una web que vende <em>una idea</em>.</h3>
+        <p class="case-client">Enterprise Thinking · Alex Fialka</p>
         <p>Alex es ejecutivo en logística, offshore y servicios marítimos, y acababa de publicar su libro. Su web era un currículum correcto, pero no decía qué le hace diferente.</p>
         <ul class="case-points">
           <li>De nueve puestos de trabajo a un solo mensaje</li>
@@ -181,8 +200,8 @@ export default {
 
     <article class="case case-flip">
       <div class="case-copy">
-        <p class="case-client">Elite Solution Pro · Nueva Jersey</p>
         <h3>«Mi web ya está bien». Funcionaba, pero parecía <em>una plantilla más</em>.</h3>
+        <p class="case-client">Elite Solution Pro · Nueva Jersey</p>
         <p>Una consultora para emprendedores que necesitaba transmitir confianza a la primera y convertir visitas en consultas por WhatsApp.</p>
         <ul class="case-points">
           <li>Un mensaje claro que genera confianza en un segundo</li>
@@ -267,16 +286,8 @@ export default {
   </div>
 </section>
 
-<!-- Resumen de precios (sale de src/precios.mjs) -->
-<section class="price-strip" aria-labelledby="precios-title">
-  <div class="wrap price-strip-inner">
-    <h2 id="precios-title">Precios <em>claros</em></h2>
-    <ul class="price-strip-list">
-      ${priceSummary.map(s => `<li><a href="${s.href}">${s.label} <span>desde <strong>${s.from}</strong></span></a></li>`).join('\n      ')}
-    </ul>
-    <a class="link-arrow" href="/precios">Ver todos los precios</a>
-  </div>
-</section>
+<!-- Precios: el billete con la calculadora (todo sale de src/precios.mjs) -->
+${ticket()}
 
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
@@ -293,7 +304,6 @@ export default {
 <section class="zones" id="zonas" aria-labelledby="zonas-title">
   <div class="wrap">
     <div class="zones-head">
-      <p class="zones-kicker">Dónde trabajamos</p>
       <h2 id="zonas-title">Diseño web en Almería y en <em>toda España</em></h2>
       <p>Hacemos diseño de páginas web en Almería capital y en toda la provincia, en remoto y sin local abierto al público. Si buscas un diseñador web en Almería o una agencia de diseño web en Almería que te hable claro, empieza por tu zona:</p>
     </div>

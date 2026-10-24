@@ -24,8 +24,8 @@ const card = p => `<li class="price-row${p.badge ? ' is-featured' : ''}">
 const section = ({ id, title, kind, intro, common, plans }) => `<section class="block prices" id="${id}" aria-labelledby="${id}-title">
       <div class="wrap">
         <div class="prices-head">
-          <p class="prices-kind">${kind}</p>
           <h2 class="block-title" id="${id}-title">${title}</h2>
+          <p class="prices-kind">${kind}</p>
           <p>${intro}</p>
         </div>
         <ul class="price-list">

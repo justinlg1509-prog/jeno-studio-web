@@ -1,6 +1,5 @@
 const root = document.documentElement;
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 // Entrada del hero: espera a las fuentes (máx. 1,2 s) para no animar texto que luego salta
 Promise.race([document.fonts?.ready, new Promise(r => setTimeout(r, 1200))]).then(() => {
@@ -118,40 +117,6 @@ if (manifesto) {
   }
 }
 
-// Trabajos: vista previa flotante que sigue al cursor
-const preview = document.querySelector('.work-preview');
-if (preview && finePointer) {
-  const img = preview.querySelector('img');
-  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
-  const loop = () => {
-    cx += (x - cx) * 0.18;
-    cy += (y - cy) * 0.18;
-    preview.style.transform = `translate(${cx}px, ${cy}px)`;
-    raf = Math.abs(x - cx) + Math.abs(y - cy) > 0.5 ? requestAnimationFrame(loop) : null;
-  };
-  const move = e => {
-    const w = preview.offsetWidth, h = preview.offsetHeight;
-    x = Math.min(e.clientX + 28, window.innerWidth - w - 16);
-    y = Math.min(Math.max(e.clientY - h / 2, 16), window.innerHeight - h - 16);
-    if (!raf) raf = requestAnimationFrame(loop);
-  };
-  document.querySelectorAll('.work-row').forEach(row => {
-    // Precarga la imagen grande al acercarse
-    const big = new Image();
-    row.addEventListener('pointerenter', e => {
-      if (!big.src) big.src = row.dataset.preview;
-      img.src = row.dataset.preview;
-      if (!preview.classList.contains('on')) {
-        move(e); cx = x; cy = y;
-        preview.style.transform = `translate(${cx}px, ${cy}px)`;
-      }
-      preview.classList.add('on');
-    });
-    row.addEventListener('pointermove', move);
-    row.addEventListener('pointerleave', () => preview.classList.remove('on'));
-  });
-}
-
 // Vídeos: se cargan solo cuando aparecen y se pausan al salir de pantalla
 const videos = document.querySelectorAll('.lazy-video');
 const loadVideo = v => {
@@ -185,6 +150,57 @@ if ('IntersectionObserver' in window) {
 if (reducedMotion) {
   document.querySelectorAll('.phone video').forEach(v => {
     v.addEventListener('click', () => { loadVideo(v); v.paused ? v.play() : v.pause(); });
+  });
+}
+
+// Calculadora de la portada: suma la web y lo añadido. Si la combinación es un pack, usa su precio
+const calc = document.querySelector('[data-calc]');
+if (calc) {
+  const total = calc.querySelector('[data-total]');
+  const month = calc.querySelector('[data-month]');
+  const packNote = calc.querySelector('[data-pack-note]');
+  const { pack, packPrice, packWeb, packExtra } = calc.dataset;
+  const chosen = () => [...calc.querySelectorAll('input:checked')];
+  const planId = () => {
+    const web = calc.querySelector('input[name="plan"]:checked')?.value;
+    const extra = calc.querySelector(`input[value="${packExtra}"]`)?.checked;
+    return web === packWeb && extra ? pack : web;
+  };
+  const update = () => {
+    const inputs = chosen();
+    let once = inputs.reduce((n, i) => n + Number(i.dataset.price), 0);
+    const perMonth = inputs.reduce((n, i) => n + Number(i.dataset.month), 0);
+    const isPack = planId() === pack;
+    if (isPack) once = once - inputs.filter(i => i.value === packWeb || i.value === packExtra).reduce((n, i) => n + Number(i.dataset.price), 0) + Number(packPrice);
+    const from = inputs.some(i => 'from' in i.dataset);
+    total.textContent = `${from ? 'desde ' : ''}${once} €`;
+    month.textContent = perMonth ? `+ ${perMonth} €/mes` : '';
+    packNote.hidden = !isPack;
+  };
+  calc.addEventListener('change', update);
+  calc.addEventListener('submit', e => {
+    e.preventDefault();
+    window.location.href = `${calc.action}?plan=${encodeURIComponent(planId())}`;
+  });
+  update();
+}
+
+// Entradas al bajar: en cada sección, el título, luego el texto y luego la foto, una vez
+if ('IntersectionObserver' in window && !reducedMotion) {
+  const parts = document.querySelectorAll('main section:not(.hero) :is(h2, .block-title, .work-head p, .section-head p, .services-head p, .prose, .folder, .case-copy, .case-media, .service, .include-list li, .steps li, .zone-list li, .reel, .faq details, .price-row, .work-card, .blog-item, .contact-foot, .ticket, .marquee)');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) { target.classList.add('in'); io.unobserve(target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  const siblings = new Map();
+  parts.forEach(el => {
+    // Escalona los elementos que comparten padre (las filas de una lista, por ejemplo)
+    const n = siblings.get(el.parentElement) || 0;
+    siblings.set(el.parentElement, n + 1);
+    el.style.setProperty('--rv', Math.min(n, 6));
+    el.classList.add('rv');
+    io.observe(el);
   });
 }
 
