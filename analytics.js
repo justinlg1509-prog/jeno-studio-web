@@ -84,6 +84,6 @@
     if (href.startsWith('https://ig.me/')) track('generate_lead', { method: 'instagram_dm', link_location: where });
     else if (href.startsWith('https://wa.me/')) track('generate_lead', { method: 'whatsapp', link_location: where });
     else if (href.startsWith('mailto:')) track('generate_lead', { method: 'email', link_location: where });
-    else if (href === '/presupuesto') track('cta_click', { link_location: where });
+    else if (href.startsWith('/presupuesto')) track('cta_click', { link_location: where });
   });
 })();

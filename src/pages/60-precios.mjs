@@ -1,7 +1,7 @@
 // Precios: tarjetas por sección, packs y condiciones. Todo sale de src/precios.mjs
 import { INSTAGRAM } from '../data.mjs';
-import { pageHero, faq, contact, faqSchema, ORG, abs, esc } from '../layout.mjs';
-import { priceSections, packs, priceFaq, priceLabel, whatsappText, fromPrice } from '../precios.mjs';
+import { pageHero, faq, contact, faqSchema, ORG, abs } from '../layout.mjs';
+import { priceSections, packs, priceFaq, priceLabel, fromPrice } from '../precios.mjs';
 
 const path = '/precios';
 const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Precios', path }];
@@ -18,7 +18,7 @@ const card = p => `<li class="price-row${p.badge ? ' is-featured' : ''}">
             <ul class="price-items">${p.items.map(i => `<li>${i}</li>`).join('')}</ul>
             <div class="price-actions">
               <a class="btn btn-gold" href="/presupuesto?plan=${p.id}">Lo quiero</a>
-              <a class="btn btn-line" href="#" data-whatsapp="${esc(whatsappText(p))}" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>WhatsApp</a>
+              <a class="btn btn-line" href="${INSTAGRAM}" data-instagram data-location="plan_${p.id}" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Pregúntanos</a>
             </div>
           </li>`;
 
@@ -83,8 +83,8 @@ ${pageHero({
   crumbs,
   h1: 'Precios <em>claros</em>, sin sorpresas',
   lead: `Sabes lo que pagas antes de empezar. Webs desde ${fromPrice('webs')}, redes desde ${fromPrice('redes', { monthly: true })} y ficha de Google desde ${fromPrice('google')}, todo + IVA y sin permanencia en las cuotas.`,
-  actions: `<a class="btn btn-gold btn-lg" href="/presupuesto">Empezar</a>
-          <a class="btn btn-line btn-lg" href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Te ayudamos a elegir</a>`,
+  actions: `<a class="btn btn-gold btn-lg" href="${INSTAGRAM}" data-instagram data-location="precios_hero" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Te ayudamos a elegir</a>
+          <a class="btn btn-line btn-lg" href="/presupuesto">Empezar</a>`,
   extra: `<nav class="price-jump" aria-label="Secciones de precios">
           ${priceSections.map(s => `<a href="#${s.id}">${s.title}</a>`).join('\n          ')}
           <a href="#packs">Packs</a>

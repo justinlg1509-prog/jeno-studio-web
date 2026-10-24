@@ -180,6 +180,7 @@ if (calc) {
   calc.addEventListener('change', update);
   calc.addEventListener('submit', e => {
     e.preventDefault();
+    window.jenoTrack?.('cta_click', { link_location: 'calculadora', plan: planId() });
     window.location.href = `${calc.action}?plan=${encodeURIComponent(planId())}`;
   });
   update();

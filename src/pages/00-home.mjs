@@ -123,8 +123,8 @@ export default {
       <div>
         <p class="reveal-line">JENO STUDIO diseña páginas web en Almería para negocios que quieren más clientes: rápidas, claras, pensadas para el móvil y preparadas para salir en Google y en Google Maps. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
         <div class="hero-actions reveal-line">
-          <a class="btn btn-gold btn-lg" href="/precios">Ver precios</a>
-          <a class="btn btn-line btn-lg" href="#trabajos">Ver trabajos</a>
+          <a class="btn btn-gold btn-lg" href="${INSTAGRAM}" data-instagram data-location="hero" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Escríbenos por Instagram</a>
+          <a class="btn btn-line btn-lg" href="/precios">Ver precios</a>
         </div>
       </div>
       <div class="hero-media">

@@ -44,8 +44,8 @@ export function breadcrumbs(crumbs) {
         </nav>`;
 }
 
-const igButton = (label = 'Escríbenos por Instagram') =>
-  `<a class="btn btn-line" href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>${label}</a>`;
+const igButton = (label = 'Escríbenos por Instagram', cls = 'btn-line') =>
+  `<a class="btn ${cls}" href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>${label}</a>`;
 
 // Cabecera de las páginas interiores: migas, H1, la frase que dice qué es y para quién, y botones
 export function pageHero({ crumbs, h1, lead, extra = '', actions }) {
@@ -57,8 +57,8 @@ export function pageHero({ crumbs, h1, lead, extra = '', actions }) {
         <p class="page-lead">${lead}</p>
         ${extra}
         <div class="hero-actions">
-          ${actions ?? `<a class="btn btn-gold" href="/precios">Ver precios</a>
-          ${igButton()}`}
+          ${actions ?? `${igButton(undefined, 'btn-gold')}
+          <a class="btn btn-line" href="/precios">Ver precios</a>`}
         </div>
       </div>
     </section>`;
@@ -171,8 +171,8 @@ export function contact({ title = '¿Quieres saber qué ve Google de <em>tu nego
             <p>${text}</p>
           </div>
           <div class="contact-actions">
-            <a class="btn btn-dark btn-lg" href="/presupuesto">Empezar</a>
-            <a class="btn btn-line btn-lg" href="/precios">Ver precios</a>
+            <a class="btn btn-dark btn-lg" href="${INSTAGRAM}" data-instagram data-location="contacto" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Escríbenos por Instagram</a>
+            <a class="btn btn-line btn-lg" href="/presupuesto">Prefiero el formulario</a>
             <a class="contact-mail" href="mailto:${EMAIL}">${EMAIL}</a>
           </div>
         </div>
@@ -205,7 +205,7 @@ function header(path) {
       ${top('/precios', 'Precios')}
       <a href="/trabajos"${path.startsWith('/trabajos') ? ' aria-current="page"' : ''}>Trabajos</a>
       <a href="/blog"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Blog</a>
-      <a class="nav-cta" href="/presupuesto"${current('/presupuesto', path)}>Empezar</a>
+      <a class="nav-cta" href="${INSTAGRAM}" data-instagram data-location="cabecera" target="_blank" rel="noopener">Escríbenos</a>
       <div class="nav-extra">
         <a href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener">Instagram ↗</a>
         <a href="mailto:${EMAIL}">${EMAIL}</a>

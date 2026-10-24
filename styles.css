@@ -151,7 +151,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 .btn-icon { width: 20px; height: 20px; flex: none; color: var(--gold); }
 /* Sobre los paneles claros (oro y hueso) el botón secundario es un tono más oscuro del panel */
 :is(.services, .process, .contact, .is-featured, .ticket-main, .ticket-stub) .btn-line { --btn-bg: rgba(13, 12, 10, .1); --btn-fg: var(--night); --btn-hover: rgba(13, 12, 10, .18); }
-:is(.services, .process, .contact, .is-featured, .ticket-stub) .btn-icon { color: var(--night); }
+:is(.services, .process, .contact, .is-featured, .ticket-stub) .btn-icon, .btn-gold .btn-icon { color: var(--night); }
 
 .link-arrow { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 3px; text-underline-offset: 6px; transition: color .2s; }
 .link-arrow:hover { color: var(--gold); }
