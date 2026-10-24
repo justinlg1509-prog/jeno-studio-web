@@ -5,6 +5,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { render, abs } from './layout.mjs';
 import { UPDATED, SITE, BRAND, EMAIL, INSTAGRAM, INSTAGRAM_USER, services, sectors, zones, works } from './data.mjs';
+import { priceSections, packs, priceLabel, priceSummary } from './precios.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const pagesDir = join(root, 'src', 'pages');
@@ -58,11 +59,18 @@ writeFileSync(join(root, 'llms.txt'), `# ${BRAND}
 - Presupuesto: ${abs('/presupuesto')}
 - Zona: Almería capital y provincia (Roquetas de Mar, Aguadulce, El Ejido, Almerimar), Málaga y toda España.
 - Forma de trabajar: en remoto, sin local abierto al público. El contacto es por Instagram, WhatsApp o email.
-- Revisión gratis: miramos gratis y sin compromiso la web y la ficha de Google de quien nos lo pida. El resto de servicios se presupuesta.
+- Revisión gratis: miramos gratis y sin compromiso la web y la ficha de Google de quien nos lo pida.
+- Precios: ${priceSummary.map(s => `${s.label.toLowerCase()} desde ${s.from}`).join(', ')}, todo + IVA (${abs('/precios')}).
 
 ## Servicios
 
 ${services.map(s => item(s.path)).join('\n')}
+
+## Precios (todos + IVA)
+
+${item('/precios')}
+${priceSections.map(s => `- ${s.title} (${s.kind.toLowerCase()}): ${s.plans.map(p => `${p.name} ${priceLabel(p)}`).join(' · ')}.${s.common ? ` Todos incluyen: ${s.common.join(', ')}.` : ''}`).join('\n')}
+${packs.map(p => `- Pack ${p.name}: ${p.gift ? `${p.items.slice(0, 2).join(' y ')}, ${p.gift.charAt(0).toLowerCase()}${p.gift.slice(1)}` : priceLabel(p)}.`).join('\n')}
 
 ## Zonas
 

@@ -194,6 +194,7 @@ function header(path) {
       ${top('/', 'Inicio')}
       ${navDrop('Servicios', services, path)}
       ${navDrop('Sectores', sectors, path)}
+      ${top('/precios', 'Precios')}
       <a href="/trabajos"${path.startsWith('/trabajos') ? ' aria-current="page"' : ''}>Trabajos</a>
       <a href="/blog"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Blog</a>
       <a class="nav-cta" href="/presupuesto"${current('/presupuesto', path)}>Pedir presupuesto</a>
@@ -234,6 +235,7 @@ function footer(path) {
         ${col('Zonas', zones)}
         ${col('Sectores', sectors)}
         ${col('Estudio', [
+          { path: '/precios', label: 'Precios' },
           { path: '/trabajos', label: 'Trabajos' },
           { path: '/blog', label: 'Blog' },
           { path: '/presupuesto', label: 'Pedir presupuesto' },

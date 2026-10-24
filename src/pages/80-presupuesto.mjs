@@ -1,5 +1,9 @@
 // Formulario de presupuesto (lo hace funcionar presupuesto.js)
-import { breadcrumbs, ORG, abs } from '../layout.mjs';
+import { breadcrumbs, ORG, abs, esc } from '../layout.mjs';
+import { priceSections, packs, priceLabel, planNeeds } from '../precios.mjs';
+
+// Planes de /precios: llegan como ?plan=<id> y presupuesto.js deja elegido el plan y sus casillas
+const option = p => `<option value="${p.id}" data-needs="${esc(planNeeds(p).join('|'))}">${p.name} · ${priceLabel(p)}${p.gift ? '' : ' + IVA'}</option>`;
 
 const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Presupuesto', path: '/presupuesto' }];
 
@@ -39,7 +43,17 @@ export default {
         <input id="negocio" name="negocio" type="text" autocomplete="organization" enterkeyhint="next">
       </div>
 
-      <fieldset class="field" id="necesidades" aria-describedby="necesidades-hint necesidades-error">
+      <div class="field">
+        <label for="plan">Plan <span class="field-opt">(opcional)</span></label>
+        <select id="plan" name="plan" aria-describedby="plan-hint">
+          <option value="">Aún no lo sé</option>
+          ${priceSections.map(s => `<optgroup label="${s.title}">${s.plans.map(option).join('')}</optgroup>`).join('\n          ')}
+          <optgroup label="Packs">${packs.map(option).join('')}</optgroup>
+        </select>
+        <p class="field-hint" id="plan-hint">Todos los precios son + IVA. <a href="/precios">Ver precios</a></p>
+      </div>
+
+      <fieldset class="field" id="necesidades"aria-describedby="necesidades-hint necesidades-error">
         <legend>¿Qué necesitas?</legend>
         <p class="field-hint" id="necesidades-hint">Puedes marcar varias.</p>
         <div class="chips">

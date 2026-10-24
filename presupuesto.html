@@ -93,6 +93,7 @@
           <li><a href="/paginas-web-para-empresas-de-reformas">Empresas de reformas</a></li>
         </ul>
       </details>
+      <a href="/precios">Precios</a>
       <a href="/trabajos">Trabajos</a>
       <a href="/blog">Blog</a>
       <a class="nav-cta" href="/presupuesto" aria-current="page">Pedir presupuesto</a>
@@ -139,7 +140,20 @@
         <input id="negocio" name="negocio" type="text" autocomplete="organization" enterkeyhint="next">
       </div>
 
-      <fieldset class="field" id="necesidades" aria-describedby="necesidades-hint necesidades-error">
+      <div class="field">
+        <label for="plan">Plan <span class="field-opt">(opcional)</span></label>
+        <select id="plan" name="plan" aria-describedby="plan-hint">
+          <option value="">Aún no lo sé</option>
+          <optgroup label="Redes sociales"><option value="redes-starter" data-needs="Gestión de redes sociales">Starter · 89 €/mes + IVA</option><option value="redes-growth" data-needs="Gestión de redes sociales">Growth · 129 €/mes + IVA</option><option value="redes-multiplataforma" data-needs="Gestión de redes sociales">Multiplataforma · 179 €/mes + IVA</option></optgroup>
+          <optgroup label="Páginas web"><option value="web-esencial" data-needs="Página web nueva">Esencial · 299 € + IVA</option><option value="web-profesional" data-needs="Página web nueva">Profesional · 499 € + IVA</option><option value="web-premium" data-needs="Página web nueva">Premium · 699 € + IVA</option><option value="web-tienda" data-needs="Tienda online">Tienda online · desde 999 € + IVA</option></optgroup>
+          <optgroup label="Mantenimiento web"><option value="mantenimiento-basico" data-needs="">Básico · 19 €/mes + IVA</option><option value="mantenimiento-estandar" data-needs="">Estándar · 39 €/mes + IVA</option></optgroup>
+          <optgroup label="Ficha de Google"><option value="google-crear" data-needs="Aparecer en Google y Google Maps">Crear la ficha · 79 € + IVA</option><option value="google-optimizar" data-needs="Aparecer en Google y Google Maps">Optimizar la ficha · 49 € + IVA</option><option value="google-gestion" data-needs="Aparecer en Google y Google Maps">Gestión · 19 €/mes + IVA</option><option value="google-gestion-publicaciones" data-needs="Aparecer en Google y Google Maps">Gestión con publicaciones · 35 €/mes + IVA</option></optgroup>
+          <optgroup label="Packs"><option value="pack-web-ficha" data-needs="Página web nueva|Aparecer en Google y Google Maps">Web Profesional + ficha de Google · 549 € + IVA</option><option value="pack-web-growth" data-needs="Página web nueva|Gestión de redes sociales|Aparecer en Google y Google Maps">Web Profesional + Growth · Ficha de Google de regalo</option></optgroup>
+        </select>
+        <p class="field-hint" id="plan-hint">Todos los precios son + IVA. <a href="/precios">Ver precios</a></p>
+      </div>
+
+      <fieldset class="field" id="necesidades"aria-describedby="necesidades-hint necesidades-error">
         <legend>¿Qué necesitas?</legend>
         <p class="field-hint" id="necesidades-hint">Puedes marcar varias.</p>
         <div class="chips">
@@ -242,6 +256,7 @@
         <nav class="footer-col" aria-label="Estudio">
           <p class="footer-title">Estudio</p>
           <ul>
+            <li><a href="/precios">Precios</a></li>
             <li><a href="/trabajos">Trabajos</a></li>
             <li><a href="/blog">Blog</a></li>
             <li><a href="/presupuesto" aria-current="page">Pedir presupuesto</a></li>

@@ -15,6 +15,22 @@
   const syncWeb = () => { webField.hidden = f.tiene_web.value !== 'si'; };
   syncWeb();
 
+  // Plan elegido en /precios (?plan=<id>): se deja seleccionado y marca sus casillas
+  const planOption = () => f.plan.selectedOptions[0];
+  const syncPlan = () => {
+    const needs = planOption()?.dataset.needs;
+    if (!needs) return;
+    needs.split('|').forEach(n => {
+      const box = form.querySelector(`input[name="necesidad"][value="${CSS.escape(n)}"]`);
+      if (box) box.checked = true;
+    });
+  };
+  const fromUrl = new URLSearchParams(location.search).get('plan');
+  if (fromUrl && [...f.plan.options].some(o => o.value === fromUrl)) {
+    f.plan.value = fromUrl;
+    syncPlan();
+  }
+
   function showError(id, message) {
     const el = document.getElementById(`${id}-error`);
     el.textContent = message;
@@ -26,7 +42,7 @@
 
   function validate() {
     const nameOk = f.nombre.value.trim() !== '';
-    const needsOk = checkedNeeds().length > 0;
+    const needsOk = checkedNeeds().length > 0 || !!f.plan.value;
     showError('nombre', nameOk ? '' : 'Escribe tu nombre para saber cómo dirigirnos a ti.');
     showError('necesidades', needsOk ? '' : 'Marca al menos una opción en «¿Qué necesitas?».');
     // El foco va al primer campo con error para que se vea y se pueda corregir
@@ -41,6 +57,7 @@
   });
   form.addEventListener('change', e => {
     if (e.target.name === 'tiene_web') syncWeb();
+    if (e.target === f.plan) { syncPlan(); if (f.plan.value) showError('necesidades', ''); }
     if (e.target.name === 'necesidad' && checkedNeeds().length) showError('necesidades', '');
   });
 
@@ -51,7 +68,8 @@
       'Hola JENO STUDIO, quiero pedir presupuesto.',
       `Nombre: ${f.nombre.value.trim()}`,
       f.negocio.value.trim() && `Negocio: ${f.negocio.value.trim()}`,
-      `Necesito: ${checkedNeeds().join(', ')}`,
+      f.plan.value && `Plan: ${planOption().closest('optgroup').label} · ${planOption().textContent}`,
+      checkedNeeds().length && `Necesito: ${checkedNeeds().join(', ')}`,
       hasWeb === 'si' && `Web actual: ${web || 'Sí, tengo web'}`,
       hasWeb === 'no' && 'Web actual: No tengo web',
       f.mas.value.trim() && `Más info: ${f.mas.value.trim()}`

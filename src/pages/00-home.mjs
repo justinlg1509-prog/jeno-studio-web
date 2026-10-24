@@ -1,6 +1,7 @@
 // Portada: diseño web en Almería
 import { faq, contact, faqSchema, abs } from '../layout.mjs';
 import { SITE, BRAND, EMAIL, INSTAGRAM, OG_IMAGE, areaServed, services, sectors } from '../data.mjs';
+import { priceSummary } from '../precios.mjs';
 
 // Catálogo de servicios: las páginas de servicio y de sector, más el logo, que no tiene página propia
 const offers = [
@@ -262,6 +263,17 @@ export default {
         <a class="service-link" href="/presupuesto">Pídelo en tu presupuesto</a>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- Resumen de precios (sale de src/precios.mjs) -->
+<section class="price-strip" aria-labelledby="precios-title">
+  <div class="wrap price-strip-inner">
+    <h2 id="precios-title">Precios <em>claros</em></h2>
+    <ul class="price-strip-list">
+      ${priceSummary.map(s => `<li><a href="${s.href}">${s.label} <span>desde <strong>${s.from}</strong></span></a></li>`).join('\n      ')}
+    </ul>
+    <a class="link-arrow" href="/precios">Ver todos los precios</a>
   </div>
 </section>
 

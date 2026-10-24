@@ -1,5 +1,8 @@
 // Servicio: mantenimiento web · clave: mantenimiento web
 import { landing } from '../landing.mjs';
+import { priceSections, priceLabel } from '../precios.mjs';
+
+const maintenance = priceSections.find(s => s.id === 'mantenimiento').plans;
 
 export default landing({
   path: '/mantenimiento-web',
@@ -32,7 +35,7 @@ export default landing({
     {
       title: 'Precio del mantenimiento web mensual',
       html: `
-          <p>El precio de mantenimiento de una página web depende de lo que necesite. No es lo mismo una web de presentación que se cambia un par de veces al año que una tienda online con productos nuevos cada semana. Por eso te decimos el precio después de ver tu web y de saber cuántos cambios sueles necesitar.</p>
+          <p>Tenemos dos cuotas, sin permanencia: ${maintenance.map(p => `<strong>${p.name}, ${priceLabel(p)} + IVA</strong> (${p.items.join(', ').toLowerCase()})`).join(' y ')}. Tienes todos los detalles en <a href="/precios#mantenimiento">nuestros precios</a>.</p>
           <p>Si quieres hacerte una idea de qué partes tiene ese gasto (dominio, hosting, seguridad y cambios), lo explicamos en <a href="/blog/cuanto-cuesta-mantener-una-pagina-web">cuánto cuesta mantener una página web al mes</a>.</p>`,
     },
     {
@@ -55,7 +58,7 @@ export default landing({
     ids: ['enterprise-thinking', 'elite-solution-pro', 'ecological-villas'],
   },
   faq: [
-    { q: '¿Cuánto cuesta el mantenimiento web?', a: 'Depende del tipo de web y de cuántos cambios necesites. Te damos un precio mensual claro antes de empezar.' },
+    { q: '¿Cuánto cuesta el mantenimiento web?', a: `${maintenance.map(p => `${p.name}: ${priceLabel(p)} + IVA`).join('. ')}. Sin permanencia.` },
     { q: '¿Cómo pido un cambio?', a: 'Nos escribes por Instagram, WhatsApp o email con lo que quieres cambiar, y lo hacemos nosotros.' },
     { q: '¿Mantenéis webs que no habéis hecho vosotros?', a: 'Sí, después de revisarlas. Si la web está muy anticuada o es muy lenta, te diremos si conviene más rehacerla.' },
     { q: '¿Puedo hacer yo los cambios sencillos?', a: 'Sí. Si lo prefieres, te explicamos cómo hacer tú mismo los cambios sencillos y nos encargamos del resto.' },
