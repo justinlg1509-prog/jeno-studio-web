@@ -65,7 +65,7 @@
     const hasWeb = f.tiene_web.value;
     const web = f.web.value.trim();
     const lines = [
-      'Hola JENO STUDIO, quiero pedir presupuesto.',
+      f.plan.value ? 'Hola JENO STUDIO, quiero contratar este plan.' : 'Hola JENO STUDIO, os escribo desde la web.',
       `Nombre: ${f.nombre.value.trim()}`,
       f.negocio.value.trim() && `Negocio: ${f.negocio.value.trim()}`,
       f.plan.value && `Plan: ${planOption().closest('optgroup').label} · ${planOption().textContent}`,

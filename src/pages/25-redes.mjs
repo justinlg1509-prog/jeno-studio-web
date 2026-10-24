@@ -1,5 +1,6 @@
 // Servicio: gestión de redes sociales · clave: community manager almería
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/gestion-redes-sociales-almeria',
@@ -63,11 +64,11 @@ export default landing({
     { q: '¿Tengo que hacer yo las fotos?', a: 'No necesariamente. Si tienes fotos o vídeos de tu negocio, los aprovechamos; si no, podemos crear contenido con diseño y con <a href="/videos-con-ia-para-empresas">vídeos con IA</a>.' },
     { q: '¿Puedo revisar las publicaciones antes de que salgan?', a: 'Sí. Te enseñamos el contenido antes de publicarlo y cambiamos lo que no te convenza.' },
     { q: '¿Trabajáis con negocios de Roquetas y El Ejido?', a: 'Sí, y del resto de la provincia de Almería y de España. Todo se hace en remoto, por Instagram, WhatsApp o email.' },
-    { q: '¿Cuánto cuesta la gestión de redes sociales?', a: 'Depende de cuántas redes y cuántas publicaciones al mes necesites. Te enviamos un presupuesto claro después de hablar.' },
+    { q: '¿Cuánto cuesta la gestión de redes sociales?', a: `Precios cerrados y sin permanencia: ${pricesSentence('redes')}. Tienes lo que incluye cada plan en <a href="/precios#redes">precios</a>.` },
   ],
   cta: {
-    badge: 'Presupuesto sin compromiso',
+    badge: 'Sin permanencia',
     title: '¿Tus redes llevan tiempo <em>paradas</em>?',
-    text: 'Cuéntanos tu negocio y en qué redes estás. Te proponemos un plan de contenidos y te enviamos un presupuesto, sin compromiso.',
+    text: 'Cuéntanos tu negocio y en qué redes estás. Te decimos qué plan te encaja, sin compromiso.',
   },
 });

@@ -5,7 +5,7 @@ export default landing({
   path: '/diseno-web-el-ejido',
   crumb: 'Diseño web en El Ejido',
   title: 'Diseño web en El Ejido y Almerimar | JENO STUDIO',
-  description: 'Diseño de páginas web para empresas y negocios de El Ejido y Almerimar: rápidas, pensadas para el móvil y para salir en Google. Pide presupuesto.',
+  description: 'Diseño de páginas web para empresas y negocios de El Ejido y Almerimar: rápidas, pensadas para el móvil y para salir en Google. Mira los precios.',
   service: {
     name: 'Diseño web en El Ejido y Almerimar',
     serviceType: 'Diseño web',

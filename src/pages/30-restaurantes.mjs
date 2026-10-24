@@ -1,11 +1,12 @@
 // Sector: restaurantes y bares · clave: página web para restaurante
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/paginas-web-para-restaurantes',
   crumb: 'Páginas web para restaurantes',
   title: 'Páginas web para restaurantes y bares | JENO STUDIO',
-  description: 'Páginas web para restaurantes y bares: carta que se lee bien en el móvil, horario al día, reservas por WhatsApp y Google Maps. Pide presupuesto.',
+  description: 'Páginas web para restaurantes y bares: carta que se lee bien en el móvil, horario al día, reservas por WhatsApp y Google Maps. Mira los precios.',
   service: { name: 'Páginas web para restaurantes y bares', serviceType: 'Diseño web para restaurantes', areaServed: [{ '@type': 'City', name: 'Almería' }, { '@type': 'Country', name: 'España' }] },
   h1: 'Páginas web para <em>restaurantes</em> y bares',
   lead: 'JENO STUDIO diseña la página web para tu restaurante, bar o cafetería pensando en llenar mesas: la carta fácil de leer en el móvil, el horario al día, las reservas por WhatsApp a un toque y la ficha de Google Maps preparada.',
@@ -44,7 +45,7 @@ export default landing({
     {
       title: 'Página web para restaurante: precio y qué influye',
       html: `
-          <p>El precio de una página web para un restaurante depende de cuántas páginas necesite, de si la carta cambia a menudo, de los idiomas y de si quieres reservas o pedidos online. Una web sencilla con carta, horario y reservas por WhatsApp no tiene nada que ver con una web con pedidos para llevar. Te enviamos un presupuesto claro después de hablar, y si quieres entender de qué depende, lo explicamos en <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web</a>.</p>`,
+          <p>El precio de una página web para un restaurante depende de cuántas páginas necesite, de si la carta cambia a menudo, de los idiomas y de si quieres reservas o pedidos online. Una web sencilla con carta, horario y reservas por WhatsApp no tiene nada que ver con una web con pedidos para llevar. Nuestras webs tienen precio cerrado (${pricesSentence('webs')}), y si quieres entender de qué depende, lo explicamos en <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web</a>.</p>`,
     },
     {
       title: 'Páginas web para bares, cafeterías y chiringuitos',
@@ -68,7 +69,7 @@ export default landing({
     { q: '¿Cómo funcionan las reservas por WhatsApp?', a: 'El cliente pulsa un botón y se abre WhatsApp con un mensaje ya escrito para reservar. Tú contestas cuando puedas, sin llamadas en pleno servicio.' },
     { q: '¿Sirve una carta en PDF?', a: 'Se puede enlazar, pero en el móvil se lee peor y es más incómoda de actualizar. Es mejor tener la carta como texto en la web.' },
     { q: '¿Me ayudáis con Google Maps y las reseñas?', a: 'Sí. La ficha de Google es clave para un restaurante, así que la revisamos junto con la web: categoría, horario, fotos, carta y reseñas.' },
-    { q: '¿Cuánto cuesta una página web para un restaurante?', a: 'Depende de lo que necesites: no es lo mismo una web con carta y horario que una con varios idiomas o pedidos online. Tras una primera conversación te enviamos un presupuesto claro.' },
+    { q: '¿Cuánto cuesta una página web para un restaurante?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
     { q: '¿Hacéis webs para bares de copas y cafeterías?', a: 'Sí. Bar Meridiano es un ejemplo de lo que hacemos para un bar de copas, y adaptamos cada web al tipo de local.' },
   ],
   cta: {

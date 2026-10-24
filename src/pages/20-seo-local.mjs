@@ -1,12 +1,13 @@
 // Servicio: SEO local y Google Maps · clave: seo almería
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 import { areaServed } from '../data.mjs';
 
 export default landing({
   path: '/seo-local-almeria',
   crumb: 'SEO local y Google Maps',
   title: 'SEO local y Google Maps en Almería | JENO STUDIO',
-  description: 'Posicionamiento web y Google Maps en Almería: optimizamos tu web y tu ficha de Google para que te encuentren los clientes de tu zona. Pide presupuesto.',
+  description: 'Posicionamiento web y Google Maps en Almería: optimizamos tu web y tu ficha de Google para que te encuentren los clientes de tu zona. Mira los precios.',
   service: { name: 'SEO local y Google Maps en Almería', serviceType: 'SEO local', areaServed },
   h1: 'Posicionamiento en Google y <em>Google Maps</em> en Almería',
   lead: 'JENO STUDIO hace SEO en Almería para negocios que quieren aparecer en Google y en Google Maps cuando alguien de su zona busca lo que ofrecen: optimizamos tu web y tu Perfil de Empresa en Google para que te encuentren y te elijan.',
@@ -59,7 +60,7 @@ export default landing({
     { q: '¿Por qué mi negocio no aparece en Google Maps?', a: 'Las causas más habituales son una ficha sin verificar o incompleta, una categoría equivocada, pocas reseñas, datos que no coinciden con los de tu web o una web que no dice con claridad qué haces y dónde. También influye la distancia entre tu negocio y quien busca.' },
     { q: '¿Cómo subir posiciones en Google Maps?', a: 'Completando la ficha al máximo, eligiendo bien la categoría, consiguiendo reseñas reales y contestándolas, subiendo fotos, publicando de vez en cuando y teniendo una web que respalde lo que dice la ficha. La distancia a quien busca no se puede cambiar; todo lo demás, sí.' },
     { q: '¿Cuánto tarda en notarse?', a: 'Depende de cómo esté tu ficha, de tu sector y de la competencia en tu zona. Algunos cambios, como corregir la categoría o los datos, pueden notarse antes; otros, como las reseñas o el SEO de la web, se construyen con el tiempo. Nadie puede prometerte una posición concreta, y desconfía de quien lo haga.' },
-    { q: '¿La ficha de Google es gratis?', a: 'Sí. Crear y tener un Perfil de Empresa en Google no cuesta nada. Lo que presupuestamos es nuestro trabajo: revisarla, completarla, optimizarla y mantenerla junto con tu web.' },
+    { q: '¿La ficha de Google es gratis?', a: `Sí. Crear y tener un Perfil de Empresa en Google no cuesta nada. Lo que cobramos es nuestro trabajo: ${pricesSentence('google')}. Lo tienes en <a href="/precios#google">precios</a>.` },
     { q: '¿Necesito tener web para salir en Google Maps?', a: 'No es obligatorio, pero ayuda. Google tiene en cuenta tu web para entender qué haces, y muchos clientes la miran antes de decidirse. Si no tienes, podemos hacerte una.' },
     { q: '¿Y si no tengo local abierto al público?', a: 'También puedes aparecer. Si atiendes a domicilio o en remoto, la ficha se configura como negocio de servicio, con tu zona de trabajo y sin enseñar tu dirección.' },
   ],

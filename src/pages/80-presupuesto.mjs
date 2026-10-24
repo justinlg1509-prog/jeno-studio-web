@@ -3,16 +3,16 @@ import { breadcrumbs, ORG, abs, esc } from '../layout.mjs';
 import { priceSections, packs, priceLabel, planNeeds } from '../precios.mjs';
 
 // Planes de /precios: llegan como ?plan=<id> y presupuesto.js deja elegido el plan y sus casillas
-const option = p => `<option value="${p.id}" data-needs="${esc(planNeeds(p).join('|'))}">${p.name} · ${priceLabel(p)}${p.gift ? '' : ' + IVA'}</option>`;
+const option = p => `<option value="${p.id}" data-needs="${esc(planNeeds(p).join('|'))}">${p.name} · ${priceLabel(p)} + IVA</option>`;
 
-const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Presupuesto', path: '/presupuesto' }];
+const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Empezar', path: '/presupuesto' }];
 
 export default {
   path: '/presupuesto',
-  title: 'Pide presupuesto para tu web | JENO STUDIO',
-  description: 'Pide presupuesto para tu página web, tienda online, vídeos con IA, redes sociales o Google Maps. Te respondemos en menos de 24 h por Instagram o WhatsApp.',
+  title: 'Empieza tu web, tus redes o tu ficha | JENO STUDIO',
+  description: 'Elige tu plan de web, redes sociales o ficha de Google, o cuéntanos qué necesitas. Te respondemos en menos de 24 h por Instagram o WhatsApp, sin líos.',
   crumbs,
-  schema: [{ '@type': 'ContactPage', name: 'Pide presupuesto a JENO STUDIO', url: abs('/presupuesto'), about: ORG, inLanguage: 'es-ES' }],
+  schema: [{ '@type': 'ContactPage', name: 'Empieza con JENO STUDIO', url: abs('/presupuesto'), about: ORG, inLanguage: 'es-ES' }],
   mainClass: 'quote',
   bodyAttr: 'data-no-float',
   scripts: ['/presupuesto.js'],
@@ -21,11 +21,11 @@ export default {
 <div class="wrap quote-inner">
   <div class="quote-head">
     ${breadcrumbs(crumbs)}
-    <h1>Pide tu <em>presupuesto</em></h1>
-    <p class="quote-lead">Pide presupuesto a JENO STUDIO para tu página web, tienda online, vídeos, redes o Google Maps: cuéntanos qué necesitas y te respondemos por Instagram o WhatsApp con una propuesta para tu negocio.</p>
+    <h1>Empieza tu <em>proyecto</em></h1>
+    <p class="quote-lead">Elige tu plan y cuéntanos lo básico de tu negocio: te respondemos por Instagram o WhatsApp para ponernos en marcha. Lo que no tiene precio fijo, como los vídeos con IA o el logo, te lo presupuestamos sin compromiso. <a href="/precios">Ver precios</a></p>
     <ul class="quote-trust" aria-label="Lo que te garantizamos">
       <li>Respuesta en menos de 24 h</li>
-      <li>Presupuesto sin compromiso</li>
+      <li>Precios cerrados, + IVA</li>
       <li>Trabajamos con negocios de toda España</li>
     </ul>
   </div>

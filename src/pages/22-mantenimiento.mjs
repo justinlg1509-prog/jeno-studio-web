@@ -8,7 +8,7 @@ export default landing({
   path: '/mantenimiento-web',
   crumb: 'Mantenimiento web',
   title: 'Mantenimiento web mensual | JENO STUDIO',
-  description: 'Mantenimiento web mensual: hosting, seguridad, copias de seguridad y los cambios que necesites. Tú nos escribes y nosotros lo hacemos. Pide presupuesto.',
+  description: 'Mantenimiento web mensual: hosting, seguridad, copias de seguridad y los cambios que necesites. Tú nos escribes y nosotros lo hacemos. Mira los precios.',
   service: { name: 'Mantenimiento web mensual', serviceType: 'Mantenimiento web', areaServed: [{ '@type': 'Country', name: 'España' }] },
   h1: 'Mantenimiento web: tu página <em>al día</em> cada mes',
   lead: 'El mantenimiento web de JENO STUDIO es un servicio mensual para negocios que quieren tener su página siempre al día sin ocuparse de ella: hosting, seguridad, copias de seguridad y los cambios que necesites. Tú nos escribes y nosotros lo hacemos.',

@@ -2,7 +2,7 @@
 // Los datos solo están aquí: para cambiarlos, cambia estas líneas.
 const INSTAGRAM_USER = 'jeno.studi0';
 const WHATSAPP_NUMBER = '34624108730'; // con prefijo de país, sin + ni espacios
-const WHATSAPP_TEXT = 'Hola, quiero pedir presupuesto';
+const WHATSAPP_TEXT = 'Hola, os escribo desde la web de JENO STUDIO';
 
 const instagramLink = () => `https://ig.me/m/${INSTAGRAM_USER}`;
 const whatsappLink = (text = WHATSAPP_TEXT) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;

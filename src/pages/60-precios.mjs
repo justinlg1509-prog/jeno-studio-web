@@ -5,9 +5,11 @@ import { priceSections, packs, priceFaq, priceLabel, whatsappText, fromPrice } f
 const path = '/precios';
 const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Precios', path }];
 
-const price = p => p.gift
-  ? `<p class="price"><span class="price-num price-gift">${p.gift}</span></p>`
-  : `<p class="price">${p.from ? '<span class="price-per">desde</span> ' : ''}<span class="price-num">${p.price} €</span><span class="price-per">${p.period ? `/${p.period}` : ''} + IVA</span></p>`;
+// Precio grande y, si es un pack con cuota, la cuota al lado; el regalo va debajo
+const price = p => `<div class="price-box">
+              <p class="price">${p.from ? '<span class="price-per">desde</span> ' : ''}<span class="price-num">${p.price} €</span><span class="price-per">${p.period ? `/${p.period}` : ''}${p.monthly ? ` + ${p.monthly} €/mes` : ''} + IVA</span></p>${p.gift ? `
+              <p class="price-gift">${p.gift}</p>` : ''}
+            </div>`;
 
 const card = p => `<li class="price-row${p.badge ? ' is-featured' : ''}">
             <h3>${p.name}${p.badge ? ` <span class="price-badge">${p.badge}</span>` : ''}</h3>
@@ -39,16 +41,18 @@ const offer = (p, name = p.name) => ({
   name,
   url: abs(`/presupuesto?plan=${p.id}`),
   priceCurrency: 'EUR',
-  ...(p.gift ? {} : {
-    price: p.price,
-    priceSpecification: {
+  price: p.price,
+  priceSpecification: [
+    {
       '@type': p.period ? 'UnitPriceSpecification' : 'PriceSpecification',
       ...(p.from ? { minPrice: p.price } : { price: p.price }),
       priceCurrency: 'EUR',
       valueAddedTaxIncluded: false,
       ...(p.period ? { unitCode: 'MON', unitText: 'mes' } : {}),
     },
-  }),
+    // La cuota mensual de un pack va como segunda parte del precio
+    ...(p.monthly ? [{ '@type': 'UnitPriceSpecification', price: p.monthly, priceCurrency: 'EUR', valueAddedTaxIncluded: false, unitCode: 'MON', unitText: 'mes' }] : []),
+  ],
   description: [...p.items, ...(p.gift ? [p.gift] : [])].join(', '),
   seller: ORG,
 });

@@ -1,5 +1,6 @@
 // Sector: peluquerías y barberías · clave: página web para peluquería
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/paginas-web-para-peluquerias-y-barberias',
@@ -59,7 +60,7 @@ export default landing({
     { q: '¿Puedo tener una agenda para que reserven solos?', a: 'Sí. Podemos enlazar o integrar la agenda online que ya uses, o ayudarte a elegir una. Si prefieres algo más sencillo, la cita por WhatsApp funciona muy bien.' },
     { q: '¿También hacéis páginas web para barberías?', a: 'Sí. Una página web para barbería necesita lo mismo: servicios y precios claros, fotos de tus cortes y cita en un toque, con un estilo que encaje con tu local.' },
     { q: 'No tengo buenas fotos. ¿Es un problema?', a: 'No. Te ayudamos a elegir y preparar las que tengas, y si hace falta, te decimos qué fotos hacer con el móvil para que se vean bien.' },
-    { q: '¿Cuánto cuesta una página web para una peluquería?', a: 'Depende de lo que necesites: no es lo mismo una web con servicios y cita por WhatsApp que una con agenda online o varios idiomas. Tras una primera conversación te enviamos un presupuesto claro.' },
+    { q: '¿Cuánto cuesta una página web para una peluquería?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
   ],
   cta: {
     title: 'Más citas <em>sin descolgar</em> el teléfono',

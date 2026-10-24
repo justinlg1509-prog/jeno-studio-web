@@ -476,7 +476,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .price-badge { padding: 4px 12px; border-radius: 99px; background: var(--night); color: var(--gold); font-size: 13px; font-weight: 700; letter-spacing: 0; }
 .price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
 .price-num { font-size: clamp(42px, 4.6vw, 60px); font-weight: 700; letter-spacing: -.055em; line-height: .95; }
-.price-num.price-gift { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -.035em; line-height: 1.1; color: var(--gold); }
+.price-gift { margin-top: 10px; font-weight: 700; font-size: 17px; color: var(--gold); }
 .price-per { color: var(--smoke); font-weight: 600; font-size: 15px; }
 .price-items { display: grid; gap: 8px; font-size: 16px; color: rgba(244, 239, 228, .85); }
 .price-items li { display: flex; gap: 10px; }
@@ -485,7 +485,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .price-actions .btn { min-height: 50px; padding: 0 16px; }
 /* La recomendada: el mismo dorado que «Lo que hacemos», con el texto en negro */
 .price-row.is-featured { margin-inline: -16px; padding-inline: 16px; border-radius: 16px; border-bottom-color: transparent; background: var(--gold); color: var(--night); }
-.is-featured .price-num, .is-featured .price-num.price-gift { color: var(--night); }
+.is-featured .price-num, .is-featured .price-gift { color: var(--night); }
 .is-featured .price-per { color: rgba(13, 12, 10, .7); }
 .is-featured .price-items { color: rgba(13, 12, 10, .85); }
 .is-featured .price-items li::before { background: var(--night); }
@@ -613,6 +613,7 @@ a.zone-row::after { content: "→"; color: var(--gold); font-size: 22px; transit
 .quote-head h1 { font-size: clamp(46px, 6.4vw, 104px); letter-spacing: -.05em; line-height: .95; }
 .quote-head h1 em { letter-spacing: -.03em; padding-right: .04em; }
 .quote-lead { margin-top: 24px; max-width: 26em; color: var(--smoke); font-size: clamp(17px, 1.4vw, 20px); }
+.quote-lead a { color: var(--gold); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .quote-trust { margin-top: clamp(28px, 3vw, 40px); max-width: 26em; border-top: 1px solid var(--rule-dark); }
 .quote-trust li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--rule-dark); font-weight: 600; }
 .quote-trust li::before { content: "✓"; color: var(--gold); font-weight: 700; }

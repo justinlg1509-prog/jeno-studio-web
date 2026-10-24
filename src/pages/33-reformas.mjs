@@ -1,5 +1,6 @@
 // Sector: empresas de reformas y construcción · clave: diseño web reformas
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/paginas-web-para-empresas-de-reformas',
@@ -57,7 +58,7 @@ export default landing({
     { q: '¿Puedo añadir obras nuevas a la web?', a: 'Sí. Con el <a href="/mantenimiento-web">mantenimiento web</a> las subimos nosotros cuando nos las mandes, o te enseñamos a hacerlo.' },
     { q: '¿Sirve para una constructora de obra nueva?', a: 'Sí. Una web para constructora necesita lo mismo: proyectos terminados, servicios claros y una forma fácil de contactar. Ecological Villas es un ejemplo.' },
     { q: '¿Los clientes pueden mandarme fotos para pedir presupuesto?', a: 'Sí. Con el botón de WhatsApp, el cliente te escribe y te manda las fotos de la obra directamente.' },
-    { q: '¿Cuánto cuesta una página web para una empresa de reformas?', a: 'Depende de cuántos servicios y obras quieras enseñar, de los idiomas y de si necesitas algo más, como un formulario de presupuesto detallado. Tras una primera conversación te enviamos un presupuesto claro.' },
+    { q: '¿Cuánto cuesta una página web para una empresa de reformas?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
   ],
   cta: {
     title: '¿Tu web te trae <em>presupuestos</em>?',

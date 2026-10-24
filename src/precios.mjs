@@ -60,7 +60,8 @@ export const priceSections = [
 // Packs: combinan planes de arriba
 export const packs = [
   { id: 'pack-web-ficha', name: 'Web Profesional + ficha de Google', price: 549, needs: ['Página web nueva', 'Aparecer en Google y Google Maps'], items: ['Web Profesional (hasta 5 páginas)', 'Creamos tu ficha de Google'] },
-  { id: 'pack-web-growth', name: 'Web Profesional + Growth', gift: 'Ficha de Google de regalo', needs: ['Página web nueva', 'Gestión de redes sociales', 'Aparecer en Google y Google Maps'], items: ['Web Profesional: 499 € (pago único)', 'Redes Growth: 129 €/mes', 'Te creamos la ficha de Google gratis'] },
+  // Pack con pago único + cuota: price es el pago único y monthly, la cuota al mes
+  { id: 'pack-web-growth', name: 'Web Profesional + Growth', price: 499, monthly: 129, gift: 'Ficha de Google de regalo', needs: ['Página web nueva', 'Gestión de redes sociales', 'Aparecer en Google y Google Maps'], items: ['Web Profesional (hasta 5 páginas), pago único', 'Redes Growth cada mes, sin permanencia', `Te creamos la ficha de Google gratis (valorada en ${priceSections.find(s => s.id === 'google').plans[0].price} €)`] },
 ];
 
 // Condiciones (la FAQ de /precios y su FAQPage)
@@ -80,13 +81,19 @@ const euros = n => `${n} €`;
 // Cada plan sabe a qué sección pertenece (los packs no tienen)
 for (const s of priceSections) for (const p of s.plans) Object.defineProperty(p, 'section', { value: s });
 
-// "129 €/mes", "desde 999 €" o "Ficha de Google de regalo"
-export const priceLabel = p => p.gift || `${p.from ? 'desde ' : ''}${euros(p.price)}${p.period ? `/${p.period}` : ''}`;
+// "129 €/mes", "desde 999 €" o "499 € + 129 €/mes"
+export const priceLabel = p => `${p.from ? 'desde ' : ''}${euros(p.price)}${p.period ? `/${p.period}` : ''}${p.monthly ? ` + ${euros(p.monthly)}/mes` : ''}`;
+// "Esencial 299 €, Profesional 499 €, Premium 699 € y Tienda online desde 999 €" (para textos y FAQ de otras páginas)
+export function pricesSentence(sectionId) {
+  const list = priceSections.find(s => s.id === sectionId).plans.map(p => `${p.name} ${priceLabel(p)}`);
+  return `${list.slice(0, -1).join(', ')} y ${list.at(-1)}, todo + IVA`;
+}
+export const planById = id => [...priceSections.flatMap(s => s.plans), ...packs].find(p => p.id === id);
 // "Redes sociales · Growth" para el formulario y los mensajes
 export const planName = p => p.section ? `${p.section.title} · ${p.name}` : `Pack ${p.name}`;
 // Casillas de «¿Qué necesitas?» que marca cada plan en /presupuesto
 export const planNeeds = p => p.needs || [p.need || p.section.need].filter(Boolean);
-export const whatsappText = p => `Hola, me interesa ${p.section ? `el plan ${planName(p)}` : `el pack ${p.name}`} (${priceLabel(p)}${p.gift ? '' : ' + IVA'}). ¿Me contáis más?`;
+export const whatsappText = p => `Hola, me interesa ${p.section ? `el plan ${planName(p)}` : `el pack ${p.name}`} (${priceLabel(p)} + IVA${p.gift ? `, con la ${p.gift.charAt(0).toLowerCase()}${p.gift.slice(1)}` : ''}). ¿Me contáis más?`;
 
 // Precio más bajo de una sección, solo mensual o solo de pago único: "desde 89 €/mes"
 export function fromPrice(sectionId, { monthly = false } = {}) {

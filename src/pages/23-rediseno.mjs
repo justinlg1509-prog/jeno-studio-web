@@ -1,5 +1,6 @@
 // Servicio: rediseño web · clave: rediseño web
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 // Los dos casos de antes y después de la portada, contados desde el rediseño
 const cases = `<section class="cases cases-page" aria-labelledby="casos-title">
@@ -60,7 +61,7 @@ export default landing({
   path: '/rediseno-web',
   crumb: 'Rediseño web',
   title: 'Rediseño web para webs antiguas o lentas | JENO STUDIO',
-  description: '¿Tu web se ha quedado antigua o va lenta? La rehacemos con un diseño moderno, más rápida y pensada para convertir visitas en clientes. Pide presupuesto.',
+  description: '¿Tu web se ha quedado antigua o va lenta? La rehacemos con un diseño moderno, más rápida y pensada para convertir visitas en clientes. Mira los precios.',
   service: { name: 'Rediseño web', serviceType: 'Rediseño web', areaServed: [{ '@type': 'Country', name: 'España' }] },
   h1: 'Rediseño de páginas web <em>antiguas</em> o lentas',
   lead: 'JENO STUDIO hace rediseño web para negocios cuya página se ha quedado antigua, va lenta o no trae clientes: la rehacemos con un diseño actual, más rápida y pensada para que las visitas te escriban.',
@@ -101,7 +102,7 @@ export default landing({
     {
       title: 'Rediseño de página web: precio y plazos',
       html: `
-          <p>El precio de un rediseño de página web depende de cuántas páginas tiene, de si hay que reescribir los textos, de los idiomas y de si añadimos cosas nuevas, como reservas o una tienda. Te enviamos un presupuesto claro después de ver tu web. Si quieres entender de qué depende, lo contamos en <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web</a>.</p>
+          <p>Un rediseño cuesta lo mismo que una web nueva, con precio cerrado: ${pricesSentence('webs')}. El plan depende de cuántas páginas necesites; lo tienes en <a href="/precios#webs">precios</a>. Si quieres entender de qué depende, lo contamos en <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web</a>.</p>
           <p>Los plazos dependen del tamaño de la web y de lo rápido que podamos revisarla juntos. Antes de empezar acordamos una fecha estimada de entrega, y mientras tanto tu web actual sigue funcionando: la cambiamos por la nueva solo cuando la hayas aprobado.</p>`,
     },
   ],

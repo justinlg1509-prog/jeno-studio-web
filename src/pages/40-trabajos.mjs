@@ -70,7 +70,7 @@ ${pageHero({
   h1: c.h1,
   lead: c.lead,
   actions: `<a class="btn btn-gold" href="${w.url}" target="_blank" rel="noopener">Visitar la web ↗</a>
-          <a class="btn btn-line" href="/presupuesto">Pedir presupuesto</a>`,
+          <a class="btn btn-line" href="/precios">Ver precios</a>`,
 })}
 
 <figure class="case-figure wrap">

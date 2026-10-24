@@ -1,5 +1,6 @@
 // Servicio: tiendas online con Shopify · clave: tienda online shopify
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/tiendas-online-shopify',
@@ -56,15 +57,15 @@ export default landing({
   },
   faq: [
     { q: '¿La tienda queda a mi nombre?', a: 'Sí. La cuenta de Shopify y el dominio son tuyos desde el principio. Si un día dejas de trabajar con nosotros, la tienda sigue siendo tuya.' },
-    { q: '¿Tengo que pagar Shopify aparte?', a: 'Sí. Shopify cobra una cuota mensual según el plan que elijas, y la pagas directamente a Shopify. Nuestro presupuesto es por montar y diseñar la tienda y, si quieres, por mantenerla.' },
+    { q: '¿Tengo que pagar Shopify aparte?', a: `Sí. Shopify cobra una cuota mensual según el plan que elijas, y la pagas directamente a Shopify. Lo nuestro es montar y diseñar la tienda, ${priceLabel(planById('web-tienda'))} + IVA, y, si quieres, mantenerla.` },
     { q: '¿Podré gestionar los pedidos yo mismo?', a: 'Sí. Shopify tiene un panel sencillo, también en su app para el móvil, y te enseñamos a usarlo: añadir productos, cambiar precios y gestionar pedidos.' },
     { q: '¿Cuánto se tarda en tener la tienda?', a: 'Depende sobre todo del número de productos y de si ya tienes fotos y textos. Antes de empezar acordamos una fecha estimada de entrega.' },
     { q: '¿Y si ya tengo una web?', a: 'Podemos añadir la tienda a tu web o hacer una web nueva con Shopify que lo incluya todo. Te decimos qué te conviene después de verla.' },
     { q: '¿Os encargáis del mantenimiento de la tienda?', a: 'Si quieres, sí: con el <a href="/mantenimiento-web">mantenimiento web</a> nos ocupamos de los cambios, los productos nuevos y las revisiones.' },
   ],
   cta: {
-    badge: 'Presupuesto sin compromiso',
+    badge: 'Precio cerrado',
     title: '¿Quieres vender <em>por internet</em>?',
-    text: 'Cuéntanos qué vendes y cómo lo vendes hoy. Te decimos cómo montaríamos tu tienda con Shopify y te enviamos un presupuesto claro, sin compromiso.',
+    text: 'Cuéntanos qué vendes y cómo lo vendes hoy. Te decimos cómo montaríamos tu tienda con Shopify, sin compromiso.',
   },
 });

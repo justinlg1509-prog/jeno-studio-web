@@ -1,4 +1,5 @@
 import { article } from '../article.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default article({
   slug: 'cuanto-cuesta-una-pagina-web',
@@ -54,7 +55,7 @@ export default article({
       </ul>
       <p>Un presupuesto barato que no incluye textos ni SEO, ni deja el dominio a tu nombre, puede salir caro. Y uno caro que no explica qué incluye tampoco es buena señal. El precio de una página web en España tiene sentido cuando sabes exactamente qué estás pagando.</p>` },
     { id: 'nuestro-precio', title: 'Cuánto cuesta una web con JENO STUDIO', html: `
-      <p>Cada proyecto es distinto, así que el precio, los plazos y lo que incluye se acuerdan siempre por escrito antes de empezar. Lo primero es una conversación: nos cuentas tu negocio y qué necesitas, y te enviamos un presupuesto claro.</p>
+      <p>Nuestras webs tienen precio cerrado: ${pricesSentence('webs')}. Los plazos y lo que incluye se acuerdan por escrito antes de empezar. Tienes todos los detalles en <a href="/precios">precios</a>.</p>
       <p>Si ya tienes web, antes de nada te la miramos gratis y te decimos qué le falta. A veces no hace falta una web nueva, sino un <a href="/rediseno-web">rediseño web</a>.</p>` },
   ],
   cta: {

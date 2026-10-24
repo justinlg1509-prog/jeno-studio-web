@@ -6,7 +6,7 @@ const crumbs = [{ label: 'Inicio', path: '/' }, { label: 'Página no encontrada'
 export default {
   path: '/404',
   title: 'Página no encontrada | JENO STUDIO',
-  description: 'La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio, mira nuestros servicios de diseño web o pide presupuesto para tu negocio.',
+  description: 'La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio, mira nuestros servicios de diseño web o mira nuestros precios.',
   noindex: true,
   canonical: false,
   body: `
@@ -19,7 +19,7 @@ export default {
     <div class="hero-actions">
       <a class="btn btn-gold" href="/">Ir al inicio</a>
       <a class="btn btn-line" href="/#servicios">Ver servicios</a>
-      <a class="btn btn-line" href="/presupuesto">Pedir presupuesto</a>
+      <a class="btn btn-line" href="/precios">Ver precios</a>
     </div>
   </div>
 </section>`,

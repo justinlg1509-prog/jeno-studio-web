@@ -1,5 +1,6 @@
 // Portada: diseño web en Almería
 import { faq, contact, faqSchema, abs } from '../layout.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 import { SITE, BRAND, EMAIL, INSTAGRAM, OG_IMAGE, areaServed, services, sectors } from '../data.mjs';
 import { priceSummary } from '../precios.mjs';
 
@@ -44,7 +45,7 @@ const website = {
 
 export const homeFaq = [
   { q: '¿Qué es eso de «te lo miramos gratis»?', a: 'Nos dices tu negocio y revisamos tu web y tu ficha de Google. Te contamos qué está frenando a tus clientes y qué cambiaríamos, sin compromiso.' },
-  { q: '¿Cuánto cuesta una web?', a: 'Depende de lo que necesites: no es lo mismo una página de presentación que una web con reservas o en varios idiomas. Tras una primera conversación te enviamos un presupuesto claro. Te explicamos de qué depende en <a href="/blog/cuanto-cuesta-una-pagina-web">cuánto cuesta una página web</a>.' },
+  { q: '¿Cuánto cuesta una web?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
   { q: '¿Cuánto se tarda en hacer una página web?', a: 'Depende del tamaño del proyecto y de lo rápido que podamos revisarlo juntos. Antes de empezar acordamos una fecha estimada de entrega.' },
   { q: '¿Mi negocio necesita web si ya tengo Instagram?', a: 'Instagram sirve para que te descubran, pero no sale en Google como una web cuando alguien busca lo que haces en tu zona. La web es donde explicas tus servicios y tu horario, y desde donde te escriben en un toque.' },
   { q: '¿Hacéis webs en varios idiomas?', a: 'Sí. Enterprise Thinking y Ecological Villas están en español, inglés y neerlandés, y Elite Solution Pro, en español e inglés.' },
@@ -71,7 +72,7 @@ export default {
     <div class="hero-foot">
       <p>JENO STUDIO diseña páginas web en Almería para negocios que quieren más clientes: rápidas, claras, pensadas para el móvil y preparadas para salir en Google y en Google Maps. Dinos tu negocio y te enseñamos qué le falta a tu web.</p>
       <div class="hero-actions reveal-line">
-        <a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
+        <a class="btn btn-gold" href="/precios">Ver precios</a>
         <a class="btn btn-line" href="#trabajos">Ver trabajos</a>
       </div>
     </div>

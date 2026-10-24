@@ -1,5 +1,6 @@
 // Sector: clínicas · clave: diseño web para clínicas
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/paginas-web-para-clinicas',
@@ -58,7 +59,7 @@ export default landing({
     { q: '¿Hacéis webs para clínicas de fisioterapia y de estética?', a: 'Sí. Adaptamos la estructura a cada especialidad: por tratamientos, por dolencias o por zonas del cuerpo, según lo que busquen tus pacientes.' },
     { q: '¿Me ayudáis a salir en Google Maps?', a: 'Sí. Revisamos tu ficha de Google junto con la web: categoría, horario, fotos, servicios y reseñas.' },
     { q: '¿Qué pasa con los datos de los pacientes?', a: 'La web no guarda historiales ni datos clínicos. Si pones un formulario de contacto, pedimos solo lo necesario para responder.' },
-    { q: '¿Cuánto cuesta una página web para una clínica?', a: 'Depende de lo que necesites: cuántos tratamientos, si quieres cita online o varios idiomas. Tras una primera conversación te enviamos un presupuesto claro.' },
+    { q: '¿Cuánto cuesta una página web para una clínica?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
   ],
   cta: {
     title: '¿Tu clínica transmite <em>confianza</em> en internet?',

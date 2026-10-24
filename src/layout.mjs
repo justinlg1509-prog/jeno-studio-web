@@ -57,7 +57,7 @@ export function pageHero({ crumbs, h1, lead, extra = '', actions }) {
         <p class="page-lead">${lead}</p>
         ${extra}
         <div class="hero-actions">
-          ${actions ?? `<a class="btn btn-gold" href="/presupuesto">Pedir presupuesto</a>
+          ${actions ?? `<a class="btn btn-gold" href="/precios">Ver precios</a>
           ${igButton()}`}
         </div>
       </div>
@@ -165,7 +165,8 @@ export function contact({ title = '¿Quieres saber qué ve Google de <em>tu nego
         <h2>${title}</h2>
         <p>${text}</p>
         <div class="contact-actions">
-          <a class="btn btn-gold btn-lg" href="/presupuesto">Pedir presupuesto</a>
+          <a class="btn btn-gold btn-lg" href="/presupuesto">Empezar</a>
+          <a class="btn btn-line btn-lg" href="/precios">Ver precios</a>
           <a class="contact-mail" href="mailto:${EMAIL}">${EMAIL}</a>
         </div>
       </div>
@@ -197,7 +198,7 @@ function header(path) {
       ${top('/precios', 'Precios')}
       <a href="/trabajos"${path.startsWith('/trabajos') ? ' aria-current="page"' : ''}>Trabajos</a>
       <a href="/blog"${path.startsWith('/blog') ? ' aria-current="page"' : ''}>Blog</a>
-      <a class="nav-cta" href="/presupuesto"${current('/presupuesto', path)}>Pedir presupuesto</a>
+      <a class="nav-cta" href="/presupuesto"${current('/presupuesto', path)}>Empezar</a>
       <div class="nav-extra">
         <a href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener">Instagram ↗</a>
         <a href="mailto:${EMAIL}">${EMAIL}</a>
@@ -238,7 +239,7 @@ function footer(path) {
           { path: '/precios', label: 'Precios' },
           { path: '/trabajos', label: 'Trabajos' },
           { path: '/blog', label: 'Blog' },
-          { path: '/presupuesto', label: 'Pedir presupuesto' },
+          { path: '/presupuesto', label: 'Empezar' },
           { path: `mailto:${EMAIL}`, label: 'Email' },
         ])}
       </div>

@@ -59,7 +59,7 @@ ${sectionsHtml}
         <p>${a.cta.text}</p>
         <div class="post-cta-actions">
           <a class="btn btn-gold" href="${a.cta.path}">${a.cta.label}</a>
-          <a class="btn btn-line" href="/presupuesto">Pedir presupuesto</a>
+          <a class="btn btn-line" href="/precios">Ver precios</a>
         </div>
       </aside>
     </div>

@@ -70,7 +70,7 @@ ${services.map(s => item(s.path)).join('\n')}
 
 ${item('/precios')}
 ${priceSections.map(s => `- ${s.title} (${s.kind.toLowerCase()}): ${s.plans.map(p => `${p.name} ${priceLabel(p)}`).join(' · ')}.${s.common ? ` Todos incluyen: ${s.common.join(', ')}.` : ''}`).join('\n')}
-${packs.map(p => `- Pack ${p.name}: ${p.gift ? `${p.items.slice(0, 2).join(' y ')}, ${p.gift.charAt(0).toLowerCase()}${p.gift.slice(1)}` : priceLabel(p)}.`).join('\n')}
+${packs.map(p => `- Pack ${p.name}: ${priceLabel(p)} + IVA${p.gift ? `, ${p.gift.charAt(0).toLowerCase()}${p.gift.slice(1)}` : ''}.`).join('\n')}
 
 ## Zonas
 
@@ -91,7 +91,7 @@ ${blogPaths.map(item).join('\n')}
 
 ## Contacto
 
-- Pedir presupuesto: ${abs('/presupuesto')}
+- Empezar o pedir presupuesto: ${abs('/presupuesto')}
 - Email: ${EMAIL}
 - Instagram: ${INSTAGRAM}
 `);

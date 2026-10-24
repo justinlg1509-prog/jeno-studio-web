@@ -1,11 +1,12 @@
 // Zona: Roquetas de Mar y Aguadulce · clave: diseño web roquetas de mar
 import { landing } from '../landing.mjs';
+import { pricesSentence, planById, priceLabel } from '../precios.mjs';
 
 export default landing({
   path: '/diseno-web-roquetas-de-mar',
   crumb: 'Diseño web en Roquetas de Mar',
   title: 'Diseño web en Roquetas de Mar y Aguadulce | JENO STUDIO',
-  description: 'Páginas web para negocios de Roquetas de Mar y Aguadulce: rápidas, en varios idiomas y preparadas para Google Maps. Pide presupuesto sin compromiso.',
+  description: 'Páginas web para negocios de Roquetas de Mar y Aguadulce: rápidas, en varios idiomas y preparadas para Google Maps. Precios cerrados, sin sorpresas.',
   service: {
     name: 'Diseño web en Roquetas de Mar y Aguadulce',
     serviceType: 'Diseño web',
@@ -62,7 +63,7 @@ export default landing({
     { q: '¿En qué idiomas puede estar mi web?', a: 'En los que hablen tus clientes. Hemos hecho webs en español, inglés y neerlandés, como la de Ecological Villas. Cada idioma tiene su propia versión para que Google la enseñe a quien busca en ese idioma.' },
     { q: '¿Puedo cambiar horarios y precios en temporada alta?', a: 'Sí. Con el <a href="/mantenimiento-web">mantenimiento web</a> nos escribes y lo cambiamos nosotros; si lo prefieres, te explicamos cómo hacer tú mismo los cambios sencillos.' },
     { q: '¿La web me ayuda a salir en Google Maps?', a: 'Ayuda, pero no basta sola. Google mira tu Perfil de Empresa, tus reseñas y tu web, así que trabajamos las tres cosas para que digan lo mismo.' },
-    { q: '¿Cuánto cuesta una página web en Roquetas de Mar?', a: 'Depende de lo que necesites: no es lo mismo una página de presentación que una web con reservas o en varios idiomas. Tras una primera conversación te enviamos un presupuesto claro.' },
+    { q: '¿Cuánto cuesta una página web en Roquetas de Mar?', a: `Precios cerrados: ${pricesSentence('webs')}. Tienes el detalle en <a href="/precios#webs">precios</a>.` },
     { q: '¿Trabajáis también en Aguadulce y en el resto de la costa?', a: 'Sí. Hacemos diseño web en Aguadulce, en Roquetas y en el resto de la provincia de Almería, y también para negocios de Málaga y de toda España.' },
   ],
   cta: {
