@@ -77,7 +77,8 @@ export const priceFaq = [
 ];
 
 // ---------- Ayudas ----------
-const euros = n => `${n} €`;
+// Espacio que no se parte: el € nunca se queda solo en la línea siguiente
+const euros = n => `${n} €`;
 // Cada plan sabe a qué sección pertenece (los packs no tienen)
 for (const s of priceSections) for (const p of s.plans) Object.defineProperty(p, 'section', { value: s });
 

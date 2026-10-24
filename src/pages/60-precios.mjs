@@ -1,4 +1,5 @@
 // Precios: tarjetas por sección, packs y condiciones. Todo sale de src/precios.mjs
+import { INSTAGRAM } from '../data.mjs';
 import { pageHero, faq, contact, faqSchema, ORG, abs, esc } from '../layout.mjs';
 import { priceSections, packs, priceFaq, priceLabel, whatsappText, fromPrice } from '../precios.mjs';
 
@@ -81,7 +82,9 @@ export default {
 ${pageHero({
   crumbs,
   h1: 'Precios <em>claros</em>, sin sorpresas',
-  lead: `Estos son los precios de JENO STUDIO para redes sociales, páginas web, mantenimiento y ficha de Google: redes desde ${fromPrice('redes', { monthly: true })}, webs desde ${fromPrice('webs')} y Google desde ${fromPrice('google')}. Todos los precios son sin IVA.`,
+  lead: `Sabes lo que pagas antes de empezar. Webs desde ${fromPrice('webs')}, redes desde ${fromPrice('redes', { monthly: true })} y ficha de Google desde ${fromPrice('google')}, todo + IVA y sin permanencia en las cuotas.`,
+  actions: `<a class="btn btn-gold btn-lg" href="/presupuesto">Empezar</a>
+          <a class="btn btn-line btn-lg" href="${INSTAGRAM}" data-instagram target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-instagram"/></svg>Te ayudamos a elegir</a>`,
   extra: `<nav class="price-jump" aria-label="Secciones de precios">
           ${priceSections.map(s => `<a href="#${s.id}">${s.title}</a>`).join('\n          ')}
           <a href="#packs">Packs</a>

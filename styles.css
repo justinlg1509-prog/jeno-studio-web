@@ -179,7 +179,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 500; letter-spa
 }
 .hero-foot > div:first-child { display: grid; gap: 32px; align-content: start; max-width: 34em; }
 .hero-foot p { font-size: var(--t-lead); line-height: 1.45; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* Lo que hacemos, pegado al cartel: un reel y una captura, girados */
 .hero-media { position: relative; min-height: clamp(360px, 34vw, 500px); }
@@ -575,7 +575,10 @@ main > .block:nth-child(odd) { background: var(--coal); }
 .prose a:not(.btn):hover { color: var(--gold-soft); }
 
 /* ---------- /precios: cada plan es un panel; la recomendada, en oro ---------- */
-.price-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+/* Botones primero y, debajo y bien separados, los atajos a cada sección */
+.page-hero-inner:has(.price-jump) { display: flex; flex-direction: column; align-items: flex-start; }
+.page-hero .price-jump { order: 1; margin-top: clamp(40px, 5vw, 64px); }
+.price-jump { display: flex; flex-wrap: wrap; gap: 12px; }
 .price-jump a { padding: 12px 18px; border-radius: 99px; background: var(--coal-2); font-weight: 700; font-size: 16px; transition: background-color .2s, color .2s; }
 .price-jump a:hover { background: var(--gold); color: var(--night); }
 .prices-head { max-width: 40em; margin-bottom: clamp(32px, 4vw, 56px); }
@@ -593,7 +596,7 @@ main > .block:nth-child(odd) .price-row:not(.is-featured) { background: var(--ni
 .price-items { display: grid; gap: 8px; font-size: 17px; }
 .price-items li { display: flex; gap: 10px; }
 .price-items li::before { content: "✓"; flex: none; color: var(--gold); font-weight: 800; }
-.price-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .price-actions .btn { min-height: 52px; padding: 0 16px; font-size: 16px; }
 .price-row.is-featured { background: var(--gold); color: var(--night); }
 .is-featured :is(.price-num, .price-gift, .price-badge) { color: var(--night); }
@@ -894,7 +897,7 @@ main > .block:nth-child(odd) .price-row:not(.is-featured) { background: var(--ni
   .hero-foot { grid-template-columns: 1fr; }
   .hero-media { min-height: 0; height: clamp(360px, 92vw, 560px); }
   .hero-shot { width: 78%; top: 16%; }
-  .hero-reel { width: clamp(150px, 38vw, 220px); right: 2%; top: 0; }
+  .hero-reel { width: clamp(150px, 38vw, 220px); right: 6%; top: 0; }
 
   .zones-head { grid-template-columns: 1fr; }
   .zone-row { grid-template-columns: minmax(0, 1fr) 28px; }
@@ -961,6 +964,8 @@ main > .block:nth-child(odd) .price-row:not(.is-featured) { background: var(--ni
   .faq summary { padding: 22px 20px 44px; }
   .faq details p { padding: 0 20px 44px; }
   .ticket-options { grid-template-columns: 1fr; }
+  .price-actions { grid-template-columns: 1fr; gap: 12px; }
+  .price-actions .btn { min-height: 54px; }
   .ticket-terms { grid-template-columns: 1fr; }
   .work-cards { grid-template-columns: 1fr; }
   .stats div { padding: 18px; }
