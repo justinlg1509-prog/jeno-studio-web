@@ -3,7 +3,15 @@
 (() => {
   const GA_ID = 'G-R1B994S08P';
   const KEY = 'jeno-consent';
-  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  // La decisión vale 12 meses; después se vuelve a preguntar (la AEPD pide no más de 24)
+  const MAX_AGE = 365 * 24 * 60 * 60 * 1000;
+  const read = () => {
+    try {
+      const { value, at } = JSON.parse(localStorage.getItem(KEY)) || {};
+      return ['granted', 'denied'].includes(value) && Date.now() - at < MAX_AGE ? value : null;
+    } catch { return null; }
+  };
+  const save = value => { try { localStorage.setItem(KEY, JSON.stringify({ value, at: Date.now() })); } catch {} };
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { dataLayer.push(arguments); };
@@ -34,19 +42,22 @@
 
   const banner = document.createElement('section');
   banner.className = 'consent';
-  banner.setAttribute('aria-label', 'Aviso de cookies');
+  banner.setAttribute('aria-labelledby', 'consent-title');
   banner.hidden = true;
+  // Primera capa del aviso (Guía de cookies de la AEPD): quién, para qué, de quién son, cómo aceptar,
+  // rechazar o cambiar de opinión y enlace a la política. Aceptar y Rechazar tienen el mismo peso
   banner.innerHTML = `
-    <p><strong>¿Nos dejas medir las visitas?</strong> Usamos Google Analytics para saber cuánta gente entra y qué le interesa. Solo se activa si aceptas. <a href="/cookies">Ver la política de cookies</a></p>
+    <p class="consent-title" id="consent-title">Cookies</p>
+    <p>En JENO STUDIO usamos un almacenamiento técnico, necesario para recordar tu elección, y, solo si lo aceptas, cookies de análisis de Google Analytics (Google Ireland Ltd.) para contar las visitas y saber qué páginas se ven. Google puede tratar estos datos fuera de la UE. Puedes aceptarlas o rechazarlas, y cambiar de opinión cuando quieras en «Preferencias de cookies», al pie de la página. Más información en la <a href="/cookies">política de cookies</a>.</p>
     <div class="consent-actions">
-      <button class="btn btn-line" type="button" data-consent="denied">Rechazar</button>
-      <button class="btn btn-gold" type="button" data-consent="granted">Aceptar</button>
+      <button class="btn consent-btn" type="button" data-consent="denied">Rechazar</button>
+      <button class="btn consent-btn" type="button" data-consent="granted">Aceptar</button>
     </div>`;
   document.body.appendChild(banner);
 
   banner.querySelectorAll('[data-consent]').forEach(b => b.addEventListener('click', () => {
     const value = b.dataset.consent;
-    try { localStorage.setItem(KEY, value); } catch {}
+    save(value);
     value === 'granted' ? loadAnalytics() : stopAnalytics();
     banner.hidden = true;
     document.dispatchEvent(new CustomEvent('consentchange', { detail: value }));
